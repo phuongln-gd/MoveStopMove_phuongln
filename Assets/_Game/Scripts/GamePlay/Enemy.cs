@@ -8,4 +8,16 @@ public class Enemy : Character
     {
         
     }
+
+    public override void OnDespawn()
+    {
+        StartCoroutine(Dead());
+    }
+
+    IEnumerator Dead()
+    {
+        base.OnDespawn();
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+    }
 }
