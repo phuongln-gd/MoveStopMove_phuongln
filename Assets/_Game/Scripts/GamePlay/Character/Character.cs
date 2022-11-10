@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] protected Transform tf;
+    public Transform tf;
     [SerializeField] protected string name;
     [SerializeField] protected float moveSpeed;
     public Transform weakPoint;
@@ -38,10 +38,10 @@ public class Character : MonoBehaviour
     [SerializeField]protected float attackRange;
     public int level_in_game;
     [HideInInspector] public bool isDead;
-    protected virtual void Start()
-    {
-        OnInit();
-    }
+    //protected virtual void Start()
+    //{
+    //    OnInit();
+    //}
 
     public virtual void OnInit()
     {
@@ -57,11 +57,12 @@ public class Character : MonoBehaviour
         ChangeAnim(Constant.DEAD_ANIM);
         isDead = true;
     }
-    public void LevelUp(int level)
+    public void LevelUp()
     {
-        level_in_game += level;
-        skin.localScale = skin.localScale + level * skin.localScale * 0.05f;
-        attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + level * attackRangeGO.transform.localScale * 0.05f;
+        int up = Random.Range(1, 3);
+        level_in_game += up;
+        skin.localScale = skin.localScale + up * skin.localScale * 0.05f;
+        attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + up * attackRangeGO.transform.localScale * 0.05f;
     }
     public void ChangeAnim(string animName)
     {
@@ -157,4 +158,6 @@ public class Character : MonoBehaviour
         skinWeaponHand = Instantiate(weaponData.GetWeaponHand(weaponType), weaponHand.transform);
         weaponThrow = weaponData.GetWeaponThrow(weaponType).gameObject;
     }
+
+
 }

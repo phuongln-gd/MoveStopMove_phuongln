@@ -36,12 +36,9 @@ public class Player : Character
             }
             if (Input.GetMouseButton(0))
             {
-                if ((!justAttack) || (justAttack && timer > 0.3f))
-                {
-                    Vector3 nextPoint = JoystickControl.direct * moveSpeed * Time.deltaTime + transform.position;
-                    transform.position = MoveGround(nextPoint);
-                    skin.forward = JoystickControl.direct;
-                }
+                Vector3 nextPoint = JoystickControl.direct * moveSpeed * Time.deltaTime + transform.position;
+                transform.position = MoveGround(nextPoint);
+                skin.forward = JoystickControl.direct;
             }
             if (Input.GetMouseButtonUp(0))
             {

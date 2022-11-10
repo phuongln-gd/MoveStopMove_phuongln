@@ -55,6 +55,7 @@ public class WeaponThrow : MonoBehaviour
     {
         if (other.CompareTag(Constant.CHARACTER_TAG))
         {
+            attacker.LevelUp();
             Character target = other.GetComponent<Character>();
             target.OnDespawn();
             OnDespawn();

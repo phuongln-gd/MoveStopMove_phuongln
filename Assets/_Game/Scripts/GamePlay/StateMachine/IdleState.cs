@@ -17,10 +17,18 @@ public class IdleState : IState<Enemy>
     {
         if (!t.isDead)
         {
-            timer += Time.deltaTime;
-            if (timer >= randomTime)
+            t.CheckEnemyInAttackArea();
+            if (t.hasEnemyInAreaAttack)
             {
-                t.ChangeState(new PatronState());
+                t.ChangeState(new AttackState());
+            }
+            else
+            {
+                timer += Time.deltaTime;
+                if (timer >= randomTime)
+                {
+                    t.ChangeState(new PatronState());
+                }
             }
         }
     }

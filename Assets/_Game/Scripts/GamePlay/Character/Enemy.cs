@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : Character
 {
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform ground;
+    public Transform ground;
     private Enemy target;
     public Enemy Target => target;
     [HideInInspector] public Vector3 destionation;
@@ -31,10 +31,7 @@ public class Enemy : Character
 
     private IState<Enemy> currentState;
 
-    private void Awake()
-    {
-        OnInit();
-    }
+  
     void Update()
     {
         if (currentState != null && !isDead)
@@ -48,6 +45,7 @@ public class Enemy : Character
         base.OnInit();
         ChangeWeapon((WeaponType)Random.Range(0, 2));
         ChangeState(new IdleState());
+        ground = LevelManager.Ins.currentLevel.ground;
     }
 
     public void ChangeState(IState<Enemy> state)
