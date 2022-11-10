@@ -14,8 +14,8 @@ public class Constant
     public const string ATTACK_ANIM = "attack";
 
     //tag
-    public const string ENEMY_TAG = "Enemy";
-    public const string PLAYER_TAG = "Player";
+    public const string CHARACTER_TAG = "Character";
+    public const string BARRIER_TAG = "Barrier";
 
 
 }

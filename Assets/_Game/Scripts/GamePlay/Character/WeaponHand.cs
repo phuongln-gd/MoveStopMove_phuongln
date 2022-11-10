@@ -12,6 +12,6 @@ public class WeaponHand : MonoBehaviour
 
     public bool IsStateActive()
     {
-        return gameObject.activeSelf == true;
+        return gameObject.activeInHierarchy;
     }
 }

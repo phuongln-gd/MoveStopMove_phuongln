@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Hummer : WeaponThrow
 {
-    private void Update()
+    private void Awake()
     {
+        speed = 3;
     }
 
     public override void OnInit()
@@ -13,19 +14,15 @@ public class Hummer : WeaponThrow
         base.OnInit();
     }
 
-    public override void OnDestroy()
+    public override void OnDespawn()
     {
-        base.OnDestroy();
+        base.OnDespawn();
     }
 
     public override void Throw()
     {
-        base.Throw();
-
+        tf.position = Vector3.MoveTowards(tf.position, targetPos, speed * Time.deltaTime);
+        tf.RotateAround(tf.position,Vector3.up, 720 * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-
-    }
 }

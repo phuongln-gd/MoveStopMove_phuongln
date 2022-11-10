@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class WeaponThrow : MonoBehaviour
 {
+    
+    [SerializeField] protected Transform tf;
+
     public GameObject skin;
 
     public float speed;
     protected Vector3 targetPos;
-    [SerializeField] protected Transform tf;
+    protected Character attacker;
 
-    private void Start()
+    protected bool hasTarget;
+    public bool IsDestination => Vector3.Distance(tf.position.x * Vector3.right + tf.position.z * Vector3.forward
+        , targetPos) < 0.1f;
+    public virtual void Update()
     {
-        OnInit();
+        if (hasTarget)
+        {
+            Throw();
+            if (IsDestination)
+            {
+                hasTarget = false;
+                OnDespawn();
+            }
+        }
     }
     public virtual void OnInit()
     {
+        hasTarget = false;
     }
-
-    private void Update()
-    {
-
-    }
-    public virtual void OnDestroy()
+    public virtual void OnDespawn()
     {
         Destroy(gameObject);
     }
@@ -31,6 +41,23 @@ public class WeaponThrow : MonoBehaviour
     }
     public void SetTargetPosition(Vector3 pos)
     {
+        hasTarget = true;
         targetPos = pos;
+        targetPos.y = 0;
+    }
+
+    public void SetCharacter(Character character)
+    {
+        this.attacker = character;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Constant.CHARACTER_TAG))
+        {
+            Character target = other.GetComponent<Character>();
+            target.OnDespawn();
+            OnDespawn();
+        }
     }
 }

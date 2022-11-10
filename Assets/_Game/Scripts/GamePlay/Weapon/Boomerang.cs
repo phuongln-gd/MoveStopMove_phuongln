@@ -13,18 +13,12 @@ public class Boomerang : WeaponThrow
         base.OnInit();
     }
 
-    public override void OnDestroy()
+    public override void OnDespawn()
     {
-        base.OnDestroy();
+        base.OnDespawn();
     }
 
     public override void Throw()
-    {
-        base.Throw();
-
-    }
-
-    private void OnTriggerEnter(Collider other)
     {
 
     }

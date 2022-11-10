@@ -6,14 +6,7 @@ public class Knife : WeaponThrow
 {
     private void Awake()
     {
-        speed = 10;
-    }
-    private void Update()
-    {
-        if (Vector3.Distance(targetPos,tf.position) > 0.1f)
-        {
-            tf.position = Vector3.MoveTowards(tf.position, targetPos, speed * Time.deltaTime);
-        }
+        speed = 5;
     }
 
     public override void OnInit()
@@ -21,20 +14,13 @@ public class Knife : WeaponThrow
         base.OnInit();
     }
 
-    public override void OnDestroy()
+    public override void OnDespawn()
     {
-        base.OnDestroy();
+        base.OnDespawn();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public override void Throw()
     {
-        if (other.CompareTag(Constant.ENEMY_TAG))
-        {
-            OnDestroy();
-            if (other.TryGetComponent<Enemy>(out Enemy enemy))
-            {
-                enemy.OnDespawn();
-            }
-        }
+        tf.position = Vector3.MoveTowards(tf.position, targetPos, speed * Time.deltaTime);
     }
 }
