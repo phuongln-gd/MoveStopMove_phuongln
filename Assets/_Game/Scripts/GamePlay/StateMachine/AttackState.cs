@@ -16,7 +16,7 @@ public class AttackState : IState<Enemy>
             if (t.hasEnemyInAreaAttack)
             {
                 Character target = t.FindNearestEnemy();
-               t.Attack(target);
+                t.Attack(target);
             }
             else
             {

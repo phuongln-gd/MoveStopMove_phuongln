@@ -6,7 +6,7 @@ public class Knife : WeaponThrow
 {
     private void Awake()
     {
-        speed = 5;
+        speed = 10;
     }
 
     public override void OnInit()

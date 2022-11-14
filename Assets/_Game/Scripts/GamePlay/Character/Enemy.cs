@@ -104,5 +104,39 @@ public class Enemy : Character
     public override void Attack(Character target)
     {
         base.Attack(target);
+        StartCoroutine(DelayAttack(target));
+    }
+
+    public IEnumerator DelayAttack(Character target)
+    {
+        if (!isAttacking && !target.isDead)
+        {
+            isAttacking = true;
+            ChangeAnim(Constant.ATTACK_ANIM);
+            wh.ChangeStateActive(false); // tat vu khi tren tay
+            Vector3 pos = target.weakPoint.position;
+            Vector3 toRotation = pos - tf.position;
+            transform.forward = toRotation; // xoay mat ra huong tan cong
+            yield return new WaitForSeconds(0.5f); // doi 0.5s
+            GameObject newBullet = Instantiate(weaponThrow, attackPoint.position, Quaternion.identity);
+            if (currentWeapon == WeaponType.Knife)
+            {
+                wt = newBullet.GetComponent<Knife>();
+            }
+            else if (currentWeapon == WeaponType.Hammer)
+            {
+                wt = newBullet.GetComponent<Hummer>();
+            }
+            wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
+            wt.SetCharacter(this);
+            wt.SetTargetPosition(pos);
+            Invoke(nameof(ResetAttack), 3f);
+        }
+    }
+
+    public override void ResetAttack()
+    {
+        base.ResetAttack();
+
     }
 }

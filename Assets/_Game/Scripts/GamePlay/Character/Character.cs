@@ -115,7 +115,7 @@ public class Character : MonoBehaviour, IHit
         
     }
 
-    public void ResetAttack()
+    public virtual void ResetAttack()
     {
         wh.ChangeStateActive(true);
         isAttacking = false;

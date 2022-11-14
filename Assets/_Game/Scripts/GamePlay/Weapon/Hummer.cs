@@ -6,7 +6,7 @@ public class Hummer : WeaponThrow
 {
     private void Awake()
     {
-        speed = 3;
+        speed = 8;
     }
 
     public override void OnInit()
