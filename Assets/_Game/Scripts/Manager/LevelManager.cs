@@ -20,32 +20,10 @@ public class LevelManager : Singleton<LevelManager>
     }
     public void OnInit()
     {
-        /*CONTINUE
-         Sinh ra  1 luong bot khi bat dau choi
-         */
+        LoadLevel(0);
         player.tf.position = currentLevel.startPoint.position;
-        for(int i = 0; i < currentLevel.currentBotAmount; i++)
-        {
-            SpawnNewBot();
-        }
     }
 
-    private void SpawnNewBot()
-    {
-        float posX = player.tf.position.x,
-            posZ = player.tf.position.z;
-        while (Mathf.Abs(posX-player.tf.position.x) < 10f)
-        {
-            posX = Random.Range(-ground.localPosition.x / 2, ground.localPosition.x / 2 + 1);
-        }
-        while (Mathf.Abs(posZ - player.tf.position.z) < 10f)
-        {
-            posZ = Random.Range(-ground.localPosition.y / 2, ground.localPosition.y / 2 + 1);
-        }
-        Enemy enemy = Instantiate(enemyPrefab, new Vector3(posX, player.tf.position.y, posZ), Quaternion.identity);
-        enemy.OnInit();
-        enemys.Add(enemy);
-    }
     public void LoadLevel(int level) 
     {
         if (currentLevel != null)
@@ -63,17 +41,14 @@ public class LevelManager : Singleton<LevelManager>
             //TODO: level vuot qua limit
         }
     }
-
     public void OnStartGame()
     {
 
     }
-
     public void OnFinishGame()
     {
 
     }
-
     public void OnReset()
     {
 

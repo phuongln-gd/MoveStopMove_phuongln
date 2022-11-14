@@ -11,6 +11,8 @@ public class Enemy : Character
     public Enemy Target => target;
     [HideInInspector] public Vector3 destionation;
     //Vector3.Distance(Vector3.right * tf.position.x + Vector3.forward * tf.position.z, destionation) < 0.1f;
+    
+    
     public bool IsDestination()
     {
         if (Mathf.Abs(destionation.x- tf.position.x) < 0.1f && Mathf.Abs(destionation.z- tf.position.z)< 0.1f
@@ -30,10 +32,11 @@ public class Enemy : Character
     }
 
     private IState<Enemy> currentState;
-
+    public float timer;
   
     void Update()
     {
+        timer += Time.deltaTime;
         if (currentState != null && !isDead)
         {
             currentState.OnExecute(this);
@@ -45,7 +48,7 @@ public class Enemy : Character
         base.OnInit();
         ChangeWeapon((WeaponType)Random.Range(0, 2));
         ChangeState(new IdleState());
-        ground = LevelManager.Ins.currentLevel.ground;
+        timer = 0;
     }
 
     public void ChangeState(IState<Enemy> state)
@@ -75,11 +78,6 @@ public class Enemy : Character
         Destroy(gameObject);
     }
 
-
-    /*
-     - random position
-     */
-  
     public Vector3 RandomPositionInGround()
     {
         float posX = Random.Range(-ground.localPosition.x / 2, ground.localPosition.x / 2 + 1);
@@ -95,5 +93,16 @@ public class Enemy : Character
     internal void setTarget(Enemy target)
     {
         this.target = target;
+    }
+
+    public override void OnHit()
+    {
+        base.OnHit();
+        agent.SetDestination(tf.position);
+    }
+
+    public override void Attack(Character target)
+    {
+        base.Attack(target);
     }
 }

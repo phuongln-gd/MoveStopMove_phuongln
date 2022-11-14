@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IHit
 {
     public Transform tf;
     [SerializeField] protected string name;
@@ -38,10 +38,10 @@ public class Character : MonoBehaviour
     [SerializeField]protected float attackRange;
     public int level_in_game;
     [HideInInspector] public bool isDead;
-    //protected virtual void Start()
-    //{
-    //    OnInit();
-    //}
+    protected virtual void Start()
+    {
+        OnInit();
+    }
 
     public virtual void OnInit()
     {
@@ -76,10 +76,6 @@ public class Character : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawSphere(tf.position, attackRange);
-    //}
     public void CheckEnemyInAttackArea()
     {
         listEnemyInAreaAttack.Clear();
@@ -114,32 +110,9 @@ public class Character : MonoBehaviour
         return null;
     }
 
-    public IEnumerator Attack(Character target)
+    public virtual void Attack(Character target)
     {
-        if (!isAttacking && !target.isDead && target != null)
-        {
-            isAttacking = true;
-            ChangeAnim(Constant.ATTACK_ANIM);
-            wh.ChangeStateActive(false);
-            Vector3 pos = target.weakPoint.position;
-            Vector3 toRotation = pos - tf.position;
-            skin.forward = toRotation;
-            yield return new WaitForSeconds(0.5f);
-            GameObject newBullet = Instantiate(weaponThrow, attackPoint.position,Quaternion.identity);
-            if (currentWeapon == WeaponType.Knife)
-            {
-                wt = newBullet.GetComponent<Knife>();
-            }
-            else if (currentWeapon == WeaponType.Hammer)
-            {
-                wt = newBullet.GetComponent<Hummer>();
-            }
-            wt.skin.transform.forward = toRotation - Vector3.up * -90f;
-            wt.transform.SetParent(null);
-            wt.SetCharacter(this);
-            wt.SetTargetPosition(pos);
-            Invoke(nameof(ResetAttack), 3f);
-        }
+        
     }
 
     public void ResetAttack()
@@ -159,5 +132,8 @@ public class Character : MonoBehaviour
         weaponThrow = weaponData.GetWeaponThrow(weaponType).gameObject;
     }
 
-
+    public virtual void OnHit()
+    {
+        OnDespawn();
+    }
 }

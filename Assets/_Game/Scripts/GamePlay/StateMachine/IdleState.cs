@@ -8,13 +8,14 @@ public class IdleState : IState<Enemy>
     private float randomTime;
     public void OnEnter(Enemy t)
     {
-        t.ChangeAnim(Constant.IDLE_ANIM);
+        t.StopMoving();
         timer = 0;
         randomTime = Random.Range(1f,2f);
     }
 
     public void OnExecute(Enemy t)
     {
+        timer += Time.deltaTime;
         if (!t.isDead)
         {
             t.CheckEnemyInAttackArea();
@@ -22,13 +23,9 @@ public class IdleState : IState<Enemy>
             {
                 t.ChangeState(new AttackState());
             }
-            else
+            if (timer >= randomTime)
             {
-                timer += Time.deltaTime;
-                if (timer >= randomTime)
-                {
-                    t.ChangeState(new PatronState());
-                }
+                t.ChangeState(new PatronState());
             }
         }
     }

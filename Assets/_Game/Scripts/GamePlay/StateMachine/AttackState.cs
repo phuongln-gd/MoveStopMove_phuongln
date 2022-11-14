@@ -10,10 +10,18 @@ public class AttackState : IState<Enemy>
     {
         timer = 0;
         randomTime = Random.Range(0.2f, 1f);
-        if (t.hasEnemyInAreaAttack)
+        if (t.timer > 5f)
         {
-            Character target = t.FindNearestEnemy();
-            t.StartCoroutine(t.Attack(target));
+            t.CheckEnemyInAttackArea();
+            if (t.hasEnemyInAreaAttack)
+            {
+                Character target = t.FindNearestEnemy();
+               t.Attack(target);
+            }
+            else
+            {
+                t.StopMoving();
+            }
         }
     }
 

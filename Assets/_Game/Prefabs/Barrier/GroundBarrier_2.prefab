@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 4886780677930521302}
   - component: {fileID: 4886780677930521301}
   - component: {fileID: 2538658946470971346}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundBarrier_2
   m_TagString: Barrier
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4886780677930521300
