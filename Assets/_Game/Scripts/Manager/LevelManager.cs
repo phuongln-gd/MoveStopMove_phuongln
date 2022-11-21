@@ -6,22 +6,22 @@ public class LevelManager : Singleton<LevelManager>
 {
     public Level[] levelPrefabs;
     public Player player;
-    public Enemy enemyPrefab;
-    public Transform ground => currentLevel.ground;
     public int characterAmount => currentLevel.botAmount + 1;
 
     public Level currentLevel;
 
-    private List<Enemy> enemys = new List<Enemy>();
 
     private void Start()
     {
         OnInit();
+        //UIManager.Ins.OpenUI<MainMenu>();
     }
     public void OnInit()
     {
         LoadLevel(0);
+        player.OnInit();
         player.tf.position = currentLevel.startPoint.position;
+        currentLevel.OnInit();
     }
 
     public void LoadLevel(int level) 
@@ -36,14 +36,10 @@ public class LevelManager : Singleton<LevelManager>
             currentLevel = Instantiate(levelPrefabs[level]);
             currentLevel.OnInit();
         }
-        else
-        {
-            //TODO: level vuot qua limit
-        }
     }
     public void OnStartGame()
     {
-
+        GameManager.Ins.ChangeState(GameState.GamePlay); 
     }
     public void OnFinishGame()
     {

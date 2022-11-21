@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Knife : WeaponThrow
 {
-    private void Awake()
-    {
-        speed = 10;
-    }
 
     public override void OnInit()
     {
         base.OnInit();
+        speed = 10;
     }
 
     public override void OnDespawn()

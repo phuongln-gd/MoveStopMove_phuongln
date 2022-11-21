@@ -1,27 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Level : MonoBehaviour
 {
     public Transform startPoint;
-    public Transform ground;
    
-
     public int botAmount;
+    public int aliveBot;
     public int maxBotOnGround;
+    public int spawnedBotAmount;
+
+    public List<Character> enemys = new List<Character>();
     public int currentBotAmount => enemys.Count;
-    private int spawnedBotAmount;
-    public Player player;
-    public Enemy enemyPrefab;
-    [SerializeField] private List<Enemy> enemys = new List<Enemy>();
+
     [SerializeField] private List<Transform> startPoints_Bot = new List<Transform>();
-
-    private void Start()
-    {
-        OnInit();
-    }
-
+    [SerializeField] private NavMeshData navMeshData;
+    
     public void Update()
     {
         if (currentBotAmount < maxBotOnGround && spawnedBotAmount < botAmount)
@@ -31,29 +27,36 @@ public class Level : MonoBehaviour
     }
     public void OnInit()
     {
-        // TODO:
-        player = GameObject.Find("Player").GetComponent<Player>();
         spawnedBotAmount = 0;
         for (int i = 0; i < maxBotOnGround; i++)
         {
             SpawnNewBot();
-            spawnedBotAmount += 1;
         }
+        aliveBot = botAmount;
+    }
+    void OnEnable()
+    {
+        NavMesh.AddNavMeshData(navMeshData);
     }
 
+    void OnDisable()
+    {
+        NavMesh.RemoveAllNavMeshData();
+    }
+    
     public void SpawnNewBot()
     {
-        int num = Random.Range(0,startPoints_Bot.Count);
-        Enemy enemy = Instantiate(enemyPrefab, startPoints_Bot[num].position , Quaternion.identity);
+        Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Bot, startPoints_Bot[Random.Range(0, startPoints_Bot.Count)].position , Quaternion.identity);
+        spawnedBotAmount += 1;
         enemy.OnInit();
-        enemy.ground = ground;
         enemys.Add(enemy);
     }
 
-    public void RemoveBot(Enemy enemy)
+    public void RemoveBot(Character enemy)
     {
-        if(enemys.Count > 0 && enemy != null)
+        if (enemy != null)
         {
+            aliveBot -= 1;
             enemys.Remove(enemy);
         }
     }

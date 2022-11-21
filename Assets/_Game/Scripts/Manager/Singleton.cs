@@ -9,9 +9,9 @@ public class Singleton<T> : MonoBehaviour where T:MonoBehaviour
     {
         get
         {
-            if (m_ins != null)
+            if (m_ins == null)
             {
-                m_ins.GetComponent<T>();
+                m_ins = GameObject.FindObjectOfType<T>();
                 
                 if(m_ins == null)
                 {

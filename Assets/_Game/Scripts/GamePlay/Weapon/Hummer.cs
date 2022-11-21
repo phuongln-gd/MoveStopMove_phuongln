@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class Hummer : WeaponThrow
 {
-    private void Awake()
-    {
-        speed = 8;
-    }
-
     public override void OnInit()
     {
         base.OnInit();
+        speed = 8;
     }
 
     public override void OnDespawn()

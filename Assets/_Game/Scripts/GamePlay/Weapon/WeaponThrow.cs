@@ -53,11 +53,11 @@ public class WeaponThrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Cache.GetCharacter(other))
-        {
+        if (other.CompareTag(Constant.CHARACTER_TAG) && Cache.GetCharacter(other) != attacker) {
             attacker.LevelUp();
-            Character target = other.GetComponent<Character>();
+            Character target = Cache.GetCharacter(other);
             target.OnHit();
+            LevelManager.Ins.currentLevel.RemoveBot(target);
             OnDespawn();
         }
     }

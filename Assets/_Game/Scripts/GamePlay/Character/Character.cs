@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IHit
+public class Character : GameUnit, IHit
 {
     public Transform tf;
     [SerializeField] protected string name;
@@ -35,34 +35,18 @@ public class Character : MonoBehaviour, IHit
     [HideInInspector] public bool hasEnemyInAreaAttack;
 
     private string currentAnimName;
-    [SerializeField]protected float attackRange;
+    public float attackRange;
     public int level_in_game;
+    [SerializeField] Character_Level character_Level;
     [HideInInspector] public bool isDead;
-    protected virtual void Start()
-    {
-        OnInit();
-    }
 
-    public virtual void OnInit()
-    {
-        isDead = false;
-        level_in_game = 1;
-        attackRange = 5f;
-        wh = weaponHand.GetComponent<WeaponHand>();
-        ChangeAnim(Constant.IDLE_ANIM);
-    }
-
-    public virtual void OnDespawn()
-    {
-        ChangeAnim(Constant.DEAD_ANIM);
-        isDead = true;
-    }
     public void LevelUp()
     {
         int up = Random.Range(1, 3);
         level_in_game += up;
         skin.localScale = skin.localScale + up * skin.localScale * 0.05f;
         attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + up * attackRangeGO.transform.localScale * 0.05f;
+        character_Level.SetTextLevel(level_in_game);
     }
     public void ChangeAnim(string animName)
     {
@@ -135,5 +119,22 @@ public class Character : MonoBehaviour, IHit
     public virtual void OnHit()
     {
         OnDespawn();
+    }
+
+    public override void OnInit()
+    {
+        isDead = false;
+        level_in_game = 1;
+        attackRange = 5f;
+        wh = weaponHand.GetComponent<WeaponHand>();
+        ChangeAnim(Constant.IDLE_ANIM);
+        character_Level.SetTextLevel(level_in_game);
+        character_Level.SetTextName(name);
+    }
+
+    public override void OnDespawn()
+    {
+        ChangeAnim(Constant.DEAD_ANIM);
+        isDead = true;
     }
 }

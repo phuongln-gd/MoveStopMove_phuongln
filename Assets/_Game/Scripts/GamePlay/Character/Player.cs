@@ -13,40 +13,45 @@ public class Player : Character
 
     private float timer;
     private bool isMove;
-    private void Awake()
+   
+    public override void OnInit()
     {
+        base.OnInit();
         ChangeWeapon(WeaponType.Knife);
     }
     void Update()
     {
-        if (!isDead)
-        {
-            timer += Time.deltaTime;
-            hasEnemyInAreaAttack = false;
-            if (!isMove)
+        //if (GameManager.Ins.IsState(GameState.GamePlay))
+        //{
+            if (!isDead)
             {
-                CheckEnemyInAttackArea();
-                if (hasEnemyInAreaAttack)
+                timer += Time.deltaTime;
+                hasEnemyInAreaAttack = false;
+                if (!isMove)
                 {
-                    Character target = FindNearestEnemy();
-                    Attack(target);
-                    timer = 0;
+                    CheckEnemyInAttackArea();
+                    if (hasEnemyInAreaAttack)
+                    {
+                        Character target = FindNearestEnemy();
+                        Attack(target);
+                        timer = 0;
+                    }
+                }
+                if (Input.GetMouseButton(0))
+                {
+                    Vector3 nextPoint = JoystickControl.direct * moveSpeed * Time.deltaTime + transform.position;
+                    transform.position = MoveGround(nextPoint);
+                    skin.forward = JoystickControl.direct;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (!hasEnemyInAreaAttack)
+                    {
+                        StopMove();
+                    }
                 }
             }
-            if (Input.GetMouseButton(0))
-            {
-                Vector3 nextPoint = JoystickControl.direct * moveSpeed * Time.deltaTime + transform.position;
-                transform.position = MoveGround(nextPoint);
-                skin.forward = JoystickControl.direct;
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (!hasEnemyInAreaAttack)
-                {
-                    StopMove();
-                }
-            }
-        }
+        //}
     }
     
     public override void OnDespawn()
@@ -103,10 +108,12 @@ public class Player : Character
             if (currentWeapon == WeaponType.Knife)
             {
                 wt = newBullet.GetComponent<Knife>();
+                wt.OnInit();
             }
             else if (currentWeapon == WeaponType.Hammer)
             {
                 wt = newBullet.GetComponent<Hummer>();
+                wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
             wt.SetCharacter(this);

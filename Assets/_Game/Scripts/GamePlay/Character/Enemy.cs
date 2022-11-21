@@ -6,41 +6,25 @@ using UnityEngine.AI;
 public class Enemy : Character
 {
     [SerializeField] private NavMeshAgent agent;
-    public Transform ground;
     private Enemy target;
     public Enemy Target => target;
     [HideInInspector] public Vector3 destionation;
     //Vector3.Distance(Vector3.right * tf.position.x + Vector3.forward * tf.position.z, destionation) < 0.1f;
-    
-    
-    public bool IsDestination()
-    {
-        if (Mathf.Abs(destionation.x- tf.position.x) < 0.1f && Mathf.Abs(destionation.z- tf.position.z)< 0.1f
-            && Mathf.Abs(destionation.y- tf.position.y)<0.5f)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    } 
-    public void SetDestination(Vector3 position)
-    {
-        destionation = position;
-        agent.SetDestination(position);
-    }
 
     private IState<Enemy> currentState;
     public float timer;
   
     void Update()
     {
-        timer += Time.deltaTime;
-        if (currentState != null && !isDead)
-        {
-            currentState.OnExecute(this);
-        }
+        //if (GameManager.Ins.IsState(GameState.GamePlay))
+        //{
+            timer += Time.deltaTime;
+            if (currentState != null && !isDead)
+            {
+                currentState.OnExecute(this);
+            }
+            
+        //}
     }
 
     public override void OnInit()
@@ -51,6 +35,25 @@ public class Enemy : Character
         timer = 0;
     }
 
+    
+
+    public bool IsDestination()
+    {
+        if (Mathf.Abs(destionation.x - tf.position.x) < 0.5f && Mathf.Abs(destionation.z - tf.position.z) < 0.5f
+            && Mathf.Abs(destionation.y - tf.position.y) < 0.5f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void SetDestination(Vector3 position)
+    {
+        destionation = position;
+        agent.SetDestination(position);
+    }
     public void ChangeState(IState<Enemy> state)
     {
         if (currentState != null)
@@ -80,9 +83,15 @@ public class Enemy : Character
 
     public Vector3 RandomPositionInGround()
     {
-        float posX = Random.Range(-ground.localPosition.x / 2, ground.localPosition.x / 2 + 1);
-        float posZ = Random.Range(-ground.localPosition.y / 2, ground.localPosition.y / 2 + 1);
-        return new Vector3(posX,0,posZ);
+        Vector3 randomDirection = Random.insideUnitSphere * 10f + tf.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, 10f, 1))
+        {
+            finalPosition = hit.position;
+            finalPosition.y = tf.position.y;
+        }
+        return finalPosition;
     }
 
     public void StopMoving()
