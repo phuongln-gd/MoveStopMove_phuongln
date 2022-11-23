@@ -11,7 +11,7 @@ public class Character_Level : MonoBehaviour
 
     [SerializeField] RectTransform tf;
 
-    private void Start()
+    private void Awake()
     {
         mainCameraTrans = Camera.main.transform;
     }

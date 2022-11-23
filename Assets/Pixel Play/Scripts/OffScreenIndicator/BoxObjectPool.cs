@@ -19,7 +19,11 @@ public class BoxObjectPool : MonoBehaviour
         current = this;
     }
 
-    void Start()
+    private void Start()
+    {
+        OnInit();
+    }
+    public void OnInit()
     {
         pooledObjects = new List<Indicator>();
 
@@ -31,7 +35,6 @@ public class BoxObjectPool : MonoBehaviour
             pooledObjects.Add(box);
         }
     }
-
     /// <summary>
     /// Gets pooled objects from the pool.
     /// </summary>

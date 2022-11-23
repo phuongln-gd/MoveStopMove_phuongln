@@ -6,22 +6,22 @@ public class WeaponThrow : MonoBehaviour
 {
     
     [SerializeField] protected Transform tf;
+    [SerializeField] protected Rigidbody rb;
 
     public GameObject skin;
 
     public float speed;
-    protected Vector3 targetPos;
+    protected Vector3 targetDir;
     protected Character attacker;
 
     protected bool hasTarget;
-    public bool IsDestination => Vector3.Distance(tf.position.x * Vector3.right + tf.position.z * Vector3.forward
-        , targetPos) < 0.1f;
+    protected Vector3 startPoint;
     public virtual void Update()
     {
         if (hasTarget)
         {
             Throw();
-            if (IsDestination)
+            if(Vector3.Distance(tf.position,startPoint) > attacker.attackRange)
             {
                 hasTarget = false;
                 OnDespawn();
@@ -31,6 +31,7 @@ public class WeaponThrow : MonoBehaviour
     public virtual void OnInit()
     {
         hasTarget = false;
+        startPoint = tf.position;
     }
     public virtual void OnDespawn()
     {
@@ -39,11 +40,10 @@ public class WeaponThrow : MonoBehaviour
     public virtual void Throw()
     {
     }
-    public void SetTargetPosition(Vector3 pos)
+    public virtual void SetTargetPosition(Vector3 pos)
     {
         hasTarget = true;
-        targetPos = pos;
-        targetPos.y = 0;
+        targetDir = pos - tf.position;
     }
 
     public void SetCharacter(Character character)
@@ -59,6 +59,8 @@ public class WeaponThrow : MonoBehaviour
             target.OnHit();
             LevelManager.Ins.currentLevel.RemoveBot(target);
             OnDespawn();
+            int amountBotAlive = LevelManager.Ins.currentLevel.aliveBot;
+            UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: "+ amountBotAlive);
         }
     }
 }

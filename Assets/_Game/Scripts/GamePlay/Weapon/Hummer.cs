@@ -7,7 +7,6 @@ public class Hummer : WeaponThrow
     public override void OnInit()
     {
         base.OnInit();
-        speed = 8;
     }
 
     public override void OnDespawn()
@@ -17,8 +16,13 @@ public class Hummer : WeaponThrow
 
     public override void Throw()
     {
-        tf.position = Vector3.MoveTowards(tf.position, targetPos, speed * Time.deltaTime);
+        rb.velocity = targetDir * speed / 5;
         tf.RotateAround(tf.position,Vector3.up, 720 * Time.deltaTime);
+    }
+
+    public override void SetTargetPosition(Vector3 pos)
+    {
+        base.SetTargetPosition(pos);
     }
 
 }

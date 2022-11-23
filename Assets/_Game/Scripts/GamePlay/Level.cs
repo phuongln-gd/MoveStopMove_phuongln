@@ -13,35 +13,35 @@ public class Level : MonoBehaviour
     public int spawnedBotAmount;
 
     public List<Character> enemys = new List<Character>();
+    
     public int currentBotAmount => enemys.Count;
 
     [SerializeField] private List<Transform> startPoints_Bot = new List<Transform>();
     [SerializeField] private NavMeshData navMeshData;
-    
+
+
     public void Update()
     {
-        if (currentBotAmount < maxBotOnGround && spawnedBotAmount < botAmount)
+        if (GameManager.Ins.IsState(GameState.GamePlay))
         {
-            SpawnNewBot();
+            if (currentBotAmount < maxBotOnGround && spawnedBotAmount < botAmount)
+            {
+                SpawnNewBot();
+            }
         }
+        
     }
     public void OnInit()
     {
+        NavMesh.RemoveAllNavMeshData();
+        NavMesh.AddNavMeshData(navMeshData);
+
         spawnedBotAmount = 0;
         for (int i = 0; i < maxBotOnGround; i++)
         {
             SpawnNewBot();
         }
         aliveBot = botAmount;
-    }
-    void OnEnable()
-    {
-        NavMesh.AddNavMeshData(navMeshData);
-    }
-
-    void OnDisable()
-    {
-        NavMesh.RemoveAllNavMeshData();
     }
     
     public void SpawnNewBot()

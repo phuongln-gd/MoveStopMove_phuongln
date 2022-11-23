@@ -14,14 +14,14 @@ public class LevelManager : Singleton<LevelManager>
     private void Start()
     {
         OnInit();
-        //UIManager.Ins.OpenUI<MainMenu>();
+        UIManager.Ins.OpenUI<MainMenu>();
+        GameManager.Ins.ChangeState(GameState.MainMenu);
     }
     public void OnInit()
     {
         LoadLevel(0);
-        player.OnInit();
         player.tf.position = currentLevel.startPoint.position;
-        currentLevel.OnInit();
+        player.OnInit();
     }
 
     public void LoadLevel(int level) 

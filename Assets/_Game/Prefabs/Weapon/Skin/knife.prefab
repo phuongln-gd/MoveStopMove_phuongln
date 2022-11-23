@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1442099688923912213}
   - component: {fileID: 1442099688925010645}
   m_Layer: 0
-  m_Name: knife
+  m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

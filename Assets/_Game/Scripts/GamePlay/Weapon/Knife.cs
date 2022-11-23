@@ -8,7 +8,6 @@ public class Knife : WeaponThrow
     public override void OnInit()
     {
         base.OnInit();
-        speed = 10;
     }
 
     public override void OnDespawn()
@@ -18,6 +17,11 @@ public class Knife : WeaponThrow
 
     public override void Throw()
     {
-        tf.position = Vector3.MoveTowards(tf.position, targetPos, speed * Time.deltaTime);
+        rb.velocity = targetDir * speed / 5;
+    }
+
+    public override void SetTargetPosition(Vector3 pos)
+    {
+        base.SetTargetPosition(pos);
     }
 }

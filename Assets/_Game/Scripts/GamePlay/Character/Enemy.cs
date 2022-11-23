@@ -8,7 +8,7 @@ public class Enemy : Character
     [SerializeField] private NavMeshAgent agent;
     private Enemy target;
     public Enemy Target => target;
-    [HideInInspector] public Vector3 destionation;
+    private Vector3 destionation;
     //Vector3.Distance(Vector3.right * tf.position.x + Vector3.forward * tf.position.z, destionation) < 0.1f;
 
     private IState<Enemy> currentState;
@@ -16,15 +16,14 @@ public class Enemy : Character
   
     void Update()
     {
-        //if (GameManager.Ins.IsState(GameState.GamePlay))
-        //{
+        if (GameManager.Ins.IsState(GameState.GamePlay))
+        {
             timer += Time.deltaTime;
             if (currentState != null && !isDead)
             {
                 currentState.OnExecute(this);
             }
-            
-        //}
+        }
     }
 
     public override void OnInit()
@@ -33,25 +32,24 @@ public class Enemy : Character
         ChangeWeapon((WeaponType)Random.Range(0, 2));
         ChangeState(new IdleState());
         timer = 0;
+        ChangeSkinPantRandom();
+        ChangeSkinColor((ColorType)(Random.Range(0, 6)));
+        RandomName();
+        GetRandomHat();
     }
-
-    
 
     public bool IsDestination()
     {
-        if (Mathf.Abs(destionation.x - tf.position.x) < 0.5f && Mathf.Abs(destionation.z - tf.position.z) < 0.5f
-            && Mathf.Abs(destionation.y - tf.position.y) < 0.5f)
+        if (Vector3.Distance(tf.position.x * Vector3.right + tf.position.z * Vector3.forward, destionation) < 2f)
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     public void SetDestination(Vector3 position)
     {
         destionation = position;
+        destionation.y = 0;
         agent.SetDestination(position);
     }
     public void ChangeState(IState<Enemy> state)
@@ -83,15 +81,19 @@ public class Enemy : Character
 
     public Vector3 RandomPositionInGround()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * 10f + tf.position;
+        Vector3 randomDirection = Random.insideUnitSphere * 15f + tf.position;
         NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, 10f, 1))
+        Vector3 finalPosition = tf.position;
+        if (NavMesh.SamplePosition(randomDirection, out hit, 15f, NavMesh.AllAreas))
         {
             finalPosition = hit.position;
-            finalPosition.y = tf.position.y;
+            finalPosition.y = 0;
+            return finalPosition;
         }
-        return finalPosition;
+        else
+        {
+            return RandomPositionInGround();
+        }
     }
 
     public void StopMoving()
@@ -112,7 +114,6 @@ public class Enemy : Character
 
     public override void Attack(Character target)
     {
-        base.Attack(target);
         StartCoroutine(DelayAttack(target));
     }
 
@@ -125,16 +126,18 @@ public class Enemy : Character
             wh.ChangeStateActive(false); // tat vu khi tren tay
             Vector3 pos = target.weakPoint.position;
             Vector3 toRotation = pos - tf.position;
-            transform.forward = toRotation; // xoay mat ra huong tan cong
+            tf.forward = toRotation; // xoay mat ra huong tan cong
             yield return new WaitForSeconds(0.5f); // doi 0.5s
             GameObject newBullet = Instantiate(weaponThrow, attackPoint.position, Quaternion.identity);
             if (currentWeapon == WeaponType.Knife)
             {
                 wt = newBullet.GetComponent<Knife>();
+                wt.OnInit();
             }
             else if (currentWeapon == WeaponType.Hammer)
             {
                 wt = newBullet.GetComponent<Hummer>();
+                wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
             wt.SetCharacter(this);
@@ -146,6 +149,5 @@ public class Enemy : Character
     public override void ResetAttack()
     {
         base.ResetAttack();
-
     }
 }

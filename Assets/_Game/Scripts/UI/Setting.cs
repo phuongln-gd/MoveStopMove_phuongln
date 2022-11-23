@@ -18,12 +18,16 @@ public class Setting : UICanvas
 
     public void HomeButton()
     {
+        SimplePool.CollectAll();
+        LevelManager.Ins.OnInit();
+        GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
         Close();
     }
 
     public void ContinueButton()
     {
+        GameManager.Ins.ChangeState(GameState.GamePlay);
         UIManager.Ins.OpenUI<GamePlay>();
         Close();
     }

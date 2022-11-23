@@ -17,12 +17,12 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        ChangeWeapon(WeaponType.Knife);
+        ChangeWeapon(WeaponType.Hammer);
     }
     void Update()
     {
-        //if (GameManager.Ins.IsState(GameState.GamePlay))
-        //{
+        if (GameManager.Ins.IsState(GameState.GamePlay))
+        {
             if (!isDead)
             {
                 timer += Time.deltaTime;
@@ -51,12 +51,15 @@ public class Player : Character
                     }
                 }
             }
-        //}
+        }
     }
     
     public override void OnDespawn()
     {
         base.OnDespawn();
+        GameManager.Ins.ChangeState(GameState.Lose);
+        UIManager.Ins.OpenUI<Lose>();
+        UIManager.Ins.CloseUI<GamePlay>();
     }
 
     public void StopMove()
@@ -84,13 +87,11 @@ public class Player : Character
 
     public override void OnHit()
     {
-        base.OnHit();
     }
 
 
     public override void Attack(Character target)
     {
-        base.Attack(target);
         StartCoroutine(DelayAttack(target));
     }
     public IEnumerator DelayAttack(Character target)

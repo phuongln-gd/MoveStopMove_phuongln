@@ -24,10 +24,17 @@ public class Character : GameUnit, IHit
     [SerializeField] protected Transform skin;
     //attack range
     [SerializeField] public GameObject attackRangeGO;
-    
+    [SerializeField] protected GameObject hatPos;
+
     protected List<Character> listEnemyInAreaAttack = new List<Character>();
 
     public WeaponData weaponData;
+    public SkinData skinData;
+    public NameData nameData;
+
+    public GameObject skin_pant;
+    public GameObject skin_color;
+    public ColorType colorType;
 
     protected WeaponType currentWeapon;
 
@@ -37,16 +44,17 @@ public class Character : GameUnit, IHit
     private string currentAnimName;
     public float attackRange;
     public int level_in_game;
-    [SerializeField] Character_Level character_Level;
+    [SerializeField] protected Character_Level character_Level;
     [HideInInspector] public bool isDead;
 
     public void LevelUp()
     {
         int up = Random.Range(1, 3);
         level_in_game += up;
-        skin.localScale = skin.localScale + up * skin.localScale * 0.05f;
-        attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + up * attackRangeGO.transform.localScale * 0.05f;
         character_Level.SetTextLevel(level_in_game);
+
+        // skin.localScale = skin.localScale + up * skin.localScale * 0.05f;
+        // attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + up * attackRangeGO.transform.localScale * 0.05f;
     }
     public void ChangeAnim(string animName)
     {
@@ -116,6 +124,28 @@ public class Character : GameUnit, IHit
         weaponThrow = weaponData.GetWeaponThrow(weaponType).gameObject;
     }
 
+    public void ChangeSkinPantRandom()
+    {
+        skin_pant.GetComponent<SkinnedMeshRenderer>().material = skinData.RandomPants();
+    }
+
+    public void GetRandomHat()
+    {
+        GameObject hat = Instantiate(skinData.RandomHat(), hatPos.transform);
+    }
+
+    public void ChangeSkinColor(ColorType color)
+    {
+        colorType = color;
+        skin_color.GetComponent<SkinnedMeshRenderer>().material = skinData.GetColor(color);
+    }
+
+    public void RandomName()
+    {
+        name = nameData.RandomName();
+        character_Level.SetTextName(name);
+    }
+    
     public virtual void OnHit()
     {
         OnDespawn();
