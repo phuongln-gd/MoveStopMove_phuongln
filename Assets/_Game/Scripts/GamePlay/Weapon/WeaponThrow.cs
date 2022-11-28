@@ -61,6 +61,17 @@ public class WeaponThrow : GameUnit
             if (target.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 LevelManager.Ins.currentLevel.RemoveBot(enemy);
+                if (attacker.TryGetComponent<Player>(out Player player))
+                {
+                    player.killCount += 1;
+                    if(LevelManager.Ins.currentLevel.aliveBot == 0)
+                    {
+                        GameManager.Ins.ChangeState(GameState.Victory);
+                        UIManager.Ins.OpenUI<Win>();
+                        UIManager.Ins.CloseUI<GamePlay>();
+                        player.ChangeAnim(Constant.DANCE_ANIM);
+                    }
+                }
             }
             else if (target.TryGetComponent<Player>(out Player player))
             {

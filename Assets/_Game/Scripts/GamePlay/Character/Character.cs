@@ -51,6 +51,22 @@ public class Character : GameUnit, IHit
     [SerializeField] protected Character_Level character_Level;
     [HideInInspector] public bool isDead;
 
+    public override void OnInit()
+    {
+        isDead = false;
+        level_in_game = 1;
+        attackRange = 5f;
+        wh = weaponHand.GetComponent<WeaponHand>();
+        ChangeAnim(Constant.IDLE_ANIM);
+        character_Level.SetTextLevel(level_in_game);
+        character_Level.SetTextName(nameCharacter);
+    }
+
+    public override void OnDespawn()
+    {
+        ChangeAnim(Constant.DEAD_ANIM);
+        isDead = true;
+    }
     public void LevelUp()
     {
         int up = Random.Range(1, 3);
@@ -155,20 +171,5 @@ public class Character : GameUnit, IHit
         OnDespawn();
     }
 
-    public override void OnInit()
-    {
-        isDead = false;
-        level_in_game = 1;
-        attackRange = 5f;
-        wh = weaponHand.GetComponent<WeaponHand>();
-        ChangeAnim(Constant.IDLE_ANIM);
-        character_Level.SetTextLevel(level_in_game);
-        character_Level.SetTextName(nameCharacter);
-    }
-
-    public override void OnDespawn()
-    {
-        ChangeAnim(Constant.DEAD_ANIM);
-        isDead = true;
-    }
+    
 }

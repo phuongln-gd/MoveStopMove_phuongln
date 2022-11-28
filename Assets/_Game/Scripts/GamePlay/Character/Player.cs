@@ -15,6 +15,8 @@ public class Player : Character
     private bool isMove;
     public string namekiller = "";
     public int rank = 100;
+
+    public int killCount;
     public override void OnInit()
     {
         base.OnInit();
@@ -22,6 +24,7 @@ public class Player : Character
         ChangeHat(0);
         ChangePant(0);
         ChangeShield(0);
+        killCount = 0;
     }
     void Update()
     {
@@ -124,7 +127,7 @@ public class Player : Character
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
             wt.SetCharacter(this);
             wt.SetTargetPosition(pos);
-            Invoke(nameof(ResetAttack), 3f);
+            Invoke(nameof(ResetAttack), 1.5f);
         }
     }
 
