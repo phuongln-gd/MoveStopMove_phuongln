@@ -13,7 +13,8 @@ public class Enemy : Character
 
     private IState<Enemy> currentState;
     public float timer;
-  
+    public TargetCircleEnemy targetCircle;
+    
     void Update()
     {
         if (GameManager.Ins.IsState(GameState.GamePlay))
@@ -38,6 +39,8 @@ public class Enemy : Character
 
         ChangeState(new IdleState());
         timer = 0;
+
+        targetCircle.SetEnable(false);
     }
 
     public bool IsDestination()

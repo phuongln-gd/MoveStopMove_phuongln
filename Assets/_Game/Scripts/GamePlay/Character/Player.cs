@@ -99,6 +99,7 @@ public class Player : Character
 
     public override void Attack(Character target)
     {
+        
         StartCoroutine(DelayAttack(target));
     }
     public IEnumerator DelayAttack(Character target)

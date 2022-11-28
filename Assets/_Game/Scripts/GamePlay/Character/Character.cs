@@ -50,6 +50,7 @@ public class Character : GameUnit, IHit
     public int level_in_game;
     [SerializeField] protected Character_Level character_Level;
     [HideInInspector] public bool isDead;
+    private int upgradeCount;
 
     public override void OnInit()
     {
@@ -60,6 +61,7 @@ public class Character : GameUnit, IHit
         ChangeAnim(Constant.IDLE_ANIM);
         character_Level.SetTextLevel(level_in_game);
         character_Level.SetTextName(nameCharacter);
+        upgradeCount = 0;
     }
 
     public override void OnDespawn()
@@ -67,14 +69,34 @@ public class Character : GameUnit, IHit
         ChangeAnim(Constant.DEAD_ANIM);
         isDead = true;
     }
+
     public void LevelUp()
     {
         int up = Random.Range(1, 3);
         level_in_game += up;
         character_Level.SetTextLevel(level_in_game);
 
-        // skin.localScale = skin.localScale + up * skin.localScale * 0.05f;
-        // attackRangeGO.transform.localScale = attackRangeGO.transform.localScale + up * attackRangeGO.transform.localScale * 0.05f;
+        if (level_in_game >= 3 && upgradeCount < 1)
+        {
+            UpgradeScale();
+            upgradeCount += 1;
+        }
+        if (level_in_game >= 5 && upgradeCount < 2)
+        {
+            UpgradeScale();
+            upgradeCount += 1;
+        }
+        if (level_in_game >= 9 && upgradeCount < 3)
+        {
+            UpgradeScale();
+            upgradeCount += 1;
+        }
+    }
+
+    public void UpgradeScale()
+    {
+        skin.localScale = skin.localScale * 1.1f;
+        attackRange *= 1.5f;
     }
     public void ChangeAnim(string animName)
     {
