@@ -34,6 +34,7 @@ public class Level : MonoBehaviour
     {
         NavMesh.RemoveAllNavMeshData();
         NavMesh.AddNavMeshData(navMeshData);
+
         for(int i =0; i < startPoints_Bot.Count; i++)
         {
             listPos.Add(startPoints_Bot[i].position);

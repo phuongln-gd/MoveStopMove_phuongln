@@ -12,6 +12,7 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
+    public UserData userData;
     protected void Awake()
     {
         //base.Awake();
@@ -25,7 +26,7 @@ public class GameManager : Singleton<GameManager>
         {
             Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         }
-
+        userData.OnInitData();
         //csv.OnInit();
         //userData?.OnInitData();
 
@@ -45,6 +46,4 @@ public class GameManager : Singleton<GameManager>
     {
         return this.gameState == gameState;
     }
-
-
 }

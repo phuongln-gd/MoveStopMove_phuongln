@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,13 @@ public class MainMenu : UICanvas
 {
     [SerializeField] private List<Image> phoneStates;
     [SerializeField] private List<Image> soundStates;
+    [SerializeField] private TextMeshProUGUI text_gold;
+
+    public override void Open()
+    {
+        base.Open();
+        text_gold.text = GameManager.Ins.userData.Gold+"";
+    }
     public void PlayButton()
     {
         LevelManager.Ins.OnStartGame();

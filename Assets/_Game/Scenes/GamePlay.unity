@@ -246,6 +246,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &603266001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603266002}
+  m_Layer: 0
+  m_Name: LevelupVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603266002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603266001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1460248818}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &667705419
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &667705420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +887,10 @@ MonoBehaviour:
     amount: 3
     collect: 1
     clamp: 0
-  Particle: []
+  Particle:
+  - prefab: {fileID: 7485325378323398036, guid: 49cc6ca8af80ff2439f686a2e1c4b52e, type: 3}
+    amount: 3
+    root: {fileID: 603266002}
 --- !u!4 &1460248818
 Transform:
   m_ObjectHideFlags: 0
@@ -872,6 +905,7 @@ Transform:
   - {fileID: 1450163335}
   - {fileID: 1307931348}
   - {fileID: 242799305}
+  - {fileID: 603266002}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -918,6 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dd047ab2477a14d947e3aae2378b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userData: {fileID: 11400000, guid: 362a70379a9d7fb4dbeb5d5e034a8ac2, type: 2}
 --- !u!1 &1874947186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1209,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5376763725974853328, guid: 41c100ba11837a04fa278e9080bebe7e, type: 3}
+      propertyPath: moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376763725974853328, guid: 41c100ba11837a04fa278e9080bebe7e, type: 3}
+      propertyPath: levelupVFXPrefab
+      value: 
+      objectReference: {fileID: 7485325378323398036, guid: 49cc6ca8af80ff2439f686a2e1c4b52e, type: 3}
     - target: {fileID: 5376763725974853329, guid: 41c100ba11837a04fa278e9080bebe7e, type: 3}
       propertyPath: m_Name
       value: Player

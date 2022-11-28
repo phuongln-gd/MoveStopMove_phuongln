@@ -329,5 +329,6 @@ public enum PoolType
 {
     Bot,
     HammerBullet,
-    KnifeBulllet
+    KnifeBulllet,
+    LevelUpVFX
 }

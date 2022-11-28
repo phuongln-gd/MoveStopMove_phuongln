@@ -12,7 +12,8 @@ public class Win : UICanvas
     {
         base.Open();
         int coin_Rand = Random.Range(30, 40);
-        Debug.Log(coin_Rand);
+        int coin_player = coin_Rand + GameManager.Ins.userData.Gold;
+        GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
         SetText(coin_Rand+"");
         SetTextKilled(LevelManager.Ins.player.killCount + "");
     }

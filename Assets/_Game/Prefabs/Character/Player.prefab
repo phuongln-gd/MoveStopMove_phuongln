@@ -2074,7 +2074,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5376763725971609796}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2238,7 +2238,7 @@ MonoBehaviour:
   poolType: 0
   tf: {fileID: 5376763725974853342}
   nameCharacter: 
-  moveSpeed: 10
+  moveSpeed: 7
   weakPoint: {fileID: 5376763725971609795}
   anim: {fileID: 7020739154106024763}
   weaponHand: {fileID: 5376763726550493434}
@@ -2261,6 +2261,7 @@ MonoBehaviour:
   level_in_game: 1
   character_Level: {fileID: 4013300097957829052}
   isDead: 0
+  levelupVFXPrefab: {fileID: 7485325378323398036, guid: 49cc6ca8af80ff2439f686a2e1c4b52e, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -2268,6 +2269,7 @@ MonoBehaviour:
   namekiller: 
   rank: 100
   killCount: 0
+  currentTarget: {fileID: 0}
 --- !u!1 &5376763726435891228
 GameObject:
   m_ObjectHideFlags: 0

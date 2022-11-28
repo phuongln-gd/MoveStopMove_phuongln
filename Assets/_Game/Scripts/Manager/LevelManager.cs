@@ -21,6 +21,7 @@ public class LevelManager : Singleton<LevelManager>
         LoadLevel(0);
         player.tf.position = currentLevel.startPoint.position;
         player.OnInit();
+        player.skin.localScale = Vector3.one;
     }
 
     public void LoadLevel(int level) 

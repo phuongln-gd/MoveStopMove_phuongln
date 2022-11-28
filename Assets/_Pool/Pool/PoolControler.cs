@@ -14,6 +14,7 @@ public class PoolControler : MonoBehaviour
 
     public void Awake()
     {
+
         for (int i = 0; i < Particle.Length; i++)
         {
             ParticlePool.Preload(Particle[i].prefab, Particle[i].amount, Particle[i].root);

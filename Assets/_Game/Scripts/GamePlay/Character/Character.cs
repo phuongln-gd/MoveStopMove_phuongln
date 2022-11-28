@@ -23,7 +23,7 @@ public class Character : GameUnit, IHit
     protected WeaponThrow wt;
     [SerializeField] protected Transform attackPoint;
     // skin
-    [SerializeField] protected Transform skin;
+    public Transform skin;
     //attack range
     [SerializeField] public GameObject attackRangeGO;
     [SerializeField] protected GameObject hatPos;
@@ -51,7 +51,7 @@ public class Character : GameUnit, IHit
     [SerializeField] protected Character_Level character_Level;
     [HideInInspector] public bool isDead;
     private int upgradeCount;
-
+    [SerializeField] private ParticleSystem levelupVFXPrefab;
     public override void OnInit()
     {
         isDead = false;
@@ -97,6 +97,7 @@ public class Character : GameUnit, IHit
     {
         skin.localScale = skin.localScale * 1.1f;
         attackRange *= 1.5f;
+        ParticlePool.Play(levelupVFXPrefab,tf.position,tf.rotation);
     }
     public void ChangeAnim(string animName)
     {

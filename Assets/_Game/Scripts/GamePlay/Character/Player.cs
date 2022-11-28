@@ -15,8 +15,10 @@ public class Player : Character
     private bool isMove;
     public string namekiller = "";
     public int rank = 100;
-
+    
     public int killCount;
+    public Enemy currentTarget;
+
     public override void OnInit()
     {
         base.OnInit();
@@ -25,6 +27,7 @@ public class Player : Character
         ChangePant(0);
         ChangeShield(0);
         killCount = 0;
+        currentTarget = null;
     }
     void Update()
     {
@@ -37,9 +40,9 @@ public class Player : Character
                 if (!isMove)
                 {
                     CheckEnemyInAttackArea();
+                    Character target = FindNearestEnemy();
                     if (hasEnemyInAreaAttack)
                     {
-                        Character target = FindNearestEnemy();
                         Attack(target);
                         timer = 0;
                     }
@@ -49,6 +52,19 @@ public class Player : Character
                     Vector3 nextPoint = JoystickControl.direct * moveSpeed * Time.deltaTime + transform.position;
                     transform.position = MoveGround(nextPoint);
                     skin.forward = JoystickControl.direct;
+                    CheckEnemyInAttackArea();
+                    Character target = FindNearestEnemy();
+                    if (hasEnemyInAreaAttack)
+                    {
+                        ChangeCurrentTarget(target.GetComponent<Enemy>());
+                    }
+                    else
+                    {
+                        if (currentTarget != null)
+                        {
+                            currentTarget.targetCircle.SetEnable(false);
+                        }
+                    }
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -61,6 +77,17 @@ public class Player : Character
         }
     }
     
+    public void ChangeCurrentTarget(Enemy enemy)
+    {
+        if(currentTarget!= null && currentTarget != enemy)
+        {
+            currentTarget.targetCircle.SetEnable(false);
+        }
+        currentTarget = enemy;
+        currentTarget.targetCircle.SetEnable(true);
+    } 
+
+
     public override void OnDespawn()
     {
         base.OnDespawn();

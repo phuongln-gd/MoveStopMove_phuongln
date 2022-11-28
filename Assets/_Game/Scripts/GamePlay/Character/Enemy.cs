@@ -42,7 +42,7 @@ public class Enemy : Character
 
         targetCircle.SetEnable(false);
     }
-
+    
     public bool IsDestination()
     {
         if (Vector3.Distance(tf.position.x * Vector3.right + tf.position.z * Vector3.forward, destionation) < 2f)
@@ -55,6 +55,7 @@ public class Enemy : Character
     {
         destionation = position;
         destionation.y = 0;
+        agent.enabled = true;
         agent.SetDestination(position);
     }
     public void ChangeState(IState<Enemy> state)
@@ -103,7 +104,7 @@ public class Enemy : Character
 
     public void StopMoving()
     {
-        agent.SetDestination(tf.position);
+        agent.enabled = false;
         ChangeAnim(Constant.IDLE_ANIM);
     }
     internal void setTarget(Enemy target)
@@ -114,7 +115,7 @@ public class Enemy : Character
     public override void OnHit()
     {
         base.OnHit();
-        agent.SetDestination(tf.position);
+        agent.enabled = false;
     }
 
     public override void Attack(Character target)

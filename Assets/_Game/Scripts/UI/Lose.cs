@@ -12,6 +12,8 @@ public class Lose : UICanvas
     {
         base.Open();
         int coin_Rand = Random.Range(10, 15);
+        int coin_player = coin_Rand + GameManager.Ins.userData.Gold;
+        GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
         SetText(coin_Rand + "");
         SetTextLose();
     }
