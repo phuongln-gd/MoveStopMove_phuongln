@@ -6,7 +6,7 @@ using UnityEngine;
 public class Character : GameUnit, IHit
 {
     public Transform tf;
-    [SerializeField] protected string name;
+    public string nameCharacter;
     [SerializeField] protected float moveSpeed;
     public Transform weakPoint;
 
@@ -15,6 +15,8 @@ public class Character : GameUnit, IHit
     //weapon hand
     [SerializeField] protected GameObject weaponHand;
     protected GameObject skinWeaponHand;
+    protected GameObject skinHat;
+    protected GameObject skinShield;
     protected WeaponHand wh;
     // weapon throw
     [SerializeField] protected GameObject weaponThrow;
@@ -25,12 +27,14 @@ public class Character : GameUnit, IHit
     //attack range
     [SerializeField] public GameObject attackRangeGO;
     [SerializeField] protected GameObject hatPos;
+    [SerializeField] protected GameObject shieldPos;
 
     protected List<Character> listEnemyInAreaAttack = new List<Character>();
 
     public WeaponData weaponData;
     public SkinData skinData;
     public NameData nameData;
+    public SkinDataPlayer skinDataPlayer;
 
     public GameObject skin_pant;
     public GameObject skin_color;
@@ -142,8 +146,8 @@ public class Character : GameUnit, IHit
 
     public void RandomName()
     {
-        name = nameData.RandomName();
-        character_Level.SetTextName(name);
+        nameCharacter = nameData.RandomName();
+        character_Level.SetTextName(nameCharacter);
     }
     
     public virtual void OnHit()
@@ -159,7 +163,7 @@ public class Character : GameUnit, IHit
         wh = weaponHand.GetComponent<WeaponHand>();
         ChangeAnim(Constant.IDLE_ANIM);
         character_Level.SetTextLevel(level_in_game);
-        character_Level.SetTextName(name);
+        character_Level.SetTextName(nameCharacter);
     }
 
     public override void OnDespawn()

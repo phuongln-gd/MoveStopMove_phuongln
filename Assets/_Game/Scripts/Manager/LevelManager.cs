@@ -6,7 +6,6 @@ public class LevelManager : Singleton<LevelManager>
 {
     public Level[] levelPrefabs;
     public Player player;
-    public int characterAmount => currentLevel.botAmount + 1;
 
     public Level currentLevel;
 

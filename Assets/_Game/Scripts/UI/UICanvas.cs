@@ -64,8 +64,5 @@ public class UICanvas : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
-
-
 }

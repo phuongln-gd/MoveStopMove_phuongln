@@ -9,8 +9,9 @@ public class GamePlay : UICanvas
 
     public override void Open()
     {
-        int aliveBot = LevelManager.Ins.currentLevel.aliveBot;
-        UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + aliveBot);
+        base.Open();
+        int characterAmount = LevelManager.Ins.currentLevel.botAmount + 1;
+        UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + characterAmount);
     }
     public void Settingbutton()
     {
@@ -23,4 +24,5 @@ public class GamePlay : UICanvas
     {
         alive_text.text = text;
     }
+   
 }

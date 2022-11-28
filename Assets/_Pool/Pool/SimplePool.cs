@@ -327,5 +327,7 @@ public enum IngameType
 
 public enum PoolType
 {
-    Bot
+    Bot,
+    HammerBullet,
+    KnifeBulllet
 }

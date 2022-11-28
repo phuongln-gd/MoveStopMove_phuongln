@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
+  txt: {fileID: 9121645845410182418}
 --- !u!1 &3531642673440218880
 GameObject:
   m_ObjectHideFlags: 0

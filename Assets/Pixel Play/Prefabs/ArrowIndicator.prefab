@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicatorType: 1
   level_text: {fileID: 114019096506200994}
+  image_circle: {fileID: 9165036065792726870}
 --- !u!1 &1086876969492358
 GameObject:
   m_ObjectHideFlags: 0

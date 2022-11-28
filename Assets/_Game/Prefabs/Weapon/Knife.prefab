@@ -59,10 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfedb5fd7379e6548b4da9b6699a793c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 2
   tf: {fileID: 7344914573247624459}
   rb: {fileID: 2944723357309043823}
   skin: {fileID: 533681179531568121}
-  speed: 12
+  speed: 16
 --- !u!54 &2944723357309043823
 Rigidbody:
   m_ObjectHideFlags: 0

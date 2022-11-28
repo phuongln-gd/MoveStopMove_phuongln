@@ -13,11 +13,15 @@ public class Player : Character
 
     private float timer;
     private bool isMove;
-   
+    public string namekiller = "";
+    public int rank = 100;
     public override void OnInit()
     {
         base.OnInit();
-        ChangeWeapon(WeaponType.Hammer);
+        ChangeWeapon(WeaponType.Knife);
+        ChangeHat(0);
+        ChangePant(0);
+        ChangeShield(0);
     }
     void Update()
     {
@@ -87,8 +91,8 @@ public class Player : Character
 
     public override void OnHit()
     {
+        base.OnHit();
     }
-
 
     public override void Attack(Character target)
     {
@@ -105,15 +109,16 @@ public class Player : Character
             Vector3 toRotation = pos - tf.position;
             skin.forward = toRotation; // xoay mat ra huong tan cong
             yield return new WaitForSeconds(0.5f); // doi 0.5s
-            GameObject newBullet = Instantiate(weaponThrow, attackPoint.position, Quaternion.identity);
             if (currentWeapon == WeaponType.Knife)
             {
-                wt = newBullet.GetComponent<Knife>();
+                Knife newBullet = SimplePool.Spawn<Knife>(PoolType.KnifeBulllet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
                 wt.OnInit();
             }
             else if (currentWeapon == WeaponType.Hammer)
             {
-                wt = newBullet.GetComponent<Hummer>();
+                Hummer newBullet = SimplePool.Spawn<Hummer>(PoolType.HammerBullet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
                 wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
@@ -121,5 +126,28 @@ public class Player : Character
             wt.SetTargetPosition(pos);
             Invoke(nameof(ResetAttack), 3f);
         }
+    }
+
+    public void ChangeHat(int i)
+    {
+        if (skinHat != null)
+        {
+            Destroy(skinHat);
+        }
+        skinHat = Instantiate(skinDataPlayer.ChangeHatPlayer(i), hatPos.transform);
+    }
+
+    public void ChangePant(int i)
+    {
+        skin_pant.GetComponent<SkinnedMeshRenderer>().material = skinDataPlayer.ChangePantPlayer(i);
+    }
+
+    public void ChangeShield(int i)
+    {
+        if (skinShield != null)
+        {
+            Destroy(skinShield);
+        }
+        skinShield = Instantiate(skinDataPlayer.ChangeShieldPlayer(i), shieldPos.transform);
     }
 }

@@ -7,19 +7,19 @@ public class Level : MonoBehaviour
 {
     public Transform startPoint;
    
-    public int botAmount;
-    public int aliveBot;
-    public int maxBotOnGround;
-    public int spawnedBotAmount;
+    public int botAmount; // so luong bot cua man choi
+    public int aliveBot; // so luong bot con song
+    public int maxBotOnGround; // so luong bot toi da tren stage
+    public int spawnedBotAmount; // so luong bot da sinh
 
-    public List<Character> enemys = new List<Character>();
+    public List<Character> enemys = new List<Character>(); // list kiem soat bot hien tai tren stage
     
-    public int currentBotAmount => enemys.Count;
+    public int currentBotAmount => enemys.Count; // so luong bot hien tai tren stage
 
     [SerializeField] private List<Transform> startPoints_Bot = new List<Transform>();
     [SerializeField] private NavMeshData navMeshData;
 
-
+    private List<Vector3> listPos = new List<Vector3>();
     public void Update()
     {
         if (GameManager.Ins.IsState(GameState.GamePlay))
@@ -29,24 +29,38 @@ public class Level : MonoBehaviour
                 SpawnNewBot();
             }
         }
-        
     }
     public void OnInit()
     {
         NavMesh.RemoveAllNavMeshData();
         NavMesh.AddNavMeshData(navMeshData);
+        for(int i =0; i < startPoints_Bot.Count; i++)
+        {
+            listPos.Add(startPoints_Bot[i].position);
+        }
 
         spawnedBotAmount = 0;
         for (int i = 0; i < maxBotOnGround; i++)
         {
-            SpawnNewBot();
+            SpawnNewBotFirstTime();
         }
         aliveBot = botAmount;
     }
     
+    public void SpawnNewBotFirstTime()
+    {
+        int randomIndex = Random.Range(0, listPos.Count);
+        Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Bot, listPos[randomIndex], Quaternion.identity);
+        listPos.RemoveAt(randomIndex);
+        spawnedBotAmount += 1;
+        enemy.OnInit();
+        enemys.Add(enemy);
+    }
+
     public void SpawnNewBot()
     {
-        Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Bot, startPoints_Bot[Random.Range(0, startPoints_Bot.Count)].position , Quaternion.identity);
+        int randomIndex = Random.Range(0, startPoints_Bot.Count);
+        Enemy enemy = SimplePool.Spawn<Enemy>(PoolType.Bot, startPoints_Bot[randomIndex].position, Quaternion.identity);
         spawnedBotAmount += 1;
         enemy.OnInit();
         enemys.Add(enemy);
@@ -58,6 +72,8 @@ public class Level : MonoBehaviour
         {
             aliveBot -= 1;
             enemys.Remove(enemy);
+            int characterAmount = aliveBot + 1;
+            UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + characterAmount);
         }
     }
 }

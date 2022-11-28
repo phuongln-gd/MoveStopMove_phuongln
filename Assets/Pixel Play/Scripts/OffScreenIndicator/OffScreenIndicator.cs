@@ -61,7 +61,11 @@ public class OffScreenIndicator : MonoBehaviour
             }
             if(indicator)
             {
-                indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
+                Color c = target.GetComponent<Character>().skinData.
+                    GetColor(target.GetComponent<Character>().colorType).color;
+                //indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
+                indicator.SetImageColor(c);
+                indicator.SetImage_CircleColor(c);
                 indicator.SetDistanceText(distanceFromCamera); //Set the distance text for the indicator.
                 indicator.transform.position = screenPosition; //Sets the position of the indicator on the screen.
                 indicator.SetTextRotation(Quaternion.identity); // Sets the rotation of the distance text of the indicator.

@@ -8,6 +8,8 @@ public class Indicator : MonoBehaviour
 {
     [SerializeField] private IndicatorType indicatorType;
     [SerializeField] private Text level_text;
+    [SerializeField] private Image image_circle;
+
     private Image indicatorImage;
     private Text distanceText;
 
@@ -43,6 +45,12 @@ public class Indicator : MonoBehaviour
     /// Sets the image color for the indicator.
     /// </summary>
     /// <param name="color"></param>
+
+    public void SetImage_CircleColor(Color color)
+    {
+        image_circle.color = color;
+    }
+
     public void SetImageColor(Color color)
     {
         indicatorImage.color = color;

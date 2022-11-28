@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponThrow : MonoBehaviour
+public class WeaponThrow : GameUnit
 {
     
     [SerializeField] protected Transform tf;
@@ -21,22 +21,24 @@ public class WeaponThrow : MonoBehaviour
         if (hasTarget)
         {
             Throw();
-            if(Vector3.Distance(tf.position,startPoint) > attacker.attackRange)
+            if(Vector3.Distance(tf.position,startPoint) > attacker.attackRange*1.5f)
             {
                 hasTarget = false;
                 OnDespawn();
             }
         }
     }
-    public virtual void OnInit()
+    public override void OnInit()
     {
         hasTarget = false;
         startPoint = tf.position;
     }
-    public virtual void OnDespawn()
+
+    public override void OnDespawn()
     {
-        Destroy(gameObject);
+        SimplePool.Despawn(this);
     }
+
     public virtual void Throw()
     {
     }
@@ -56,11 +58,19 @@ public class WeaponThrow : MonoBehaviour
         if (other.CompareTag(Constant.CHARACTER_TAG) && Cache.GetCharacter(other) != attacker) {
             attacker.LevelUp();
             Character target = Cache.GetCharacter(other);
+            if (target.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                LevelManager.Ins.currentLevel.RemoveBot(enemy);
+            }
+            else if (target.TryGetComponent<Player>(out Player player))
+            {
+                LevelManager.Ins.player.namekiller = attacker.nameCharacter;
+                LevelManager.Ins.player.rank = LevelManager.Ins.currentLevel.aliveBot + 1;
+            }
             target.OnHit();
-            LevelManager.Ins.currentLevel.RemoveBot(target);
             OnDespawn();
-            int amountBotAlive = LevelManager.Ins.currentLevel.aliveBot;
-            UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: "+ amountBotAlive);
         }
     }
+
+    
 }

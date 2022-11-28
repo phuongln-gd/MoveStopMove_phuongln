@@ -29,13 +29,15 @@ public class Enemy : Character
     public override void OnInit()
     {
         base.OnInit();
+
         ChangeWeapon((WeaponType)Random.Range(0, 2));
-        ChangeState(new IdleState());
-        timer = 0;
         ChangeSkinPantRandom();
         ChangeSkinColor((ColorType)(Random.Range(0, 6)));
         RandomName();
         GetRandomHat();
+
+        ChangeState(new IdleState());
+        timer = 0;
     }
 
     public bool IsDestination()
@@ -76,7 +78,7 @@ public class Enemy : Character
     {
         base.OnDespawn();
         yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+        SimplePool.Despawn(this);
     }
 
     public Vector3 RandomPositionInGround()
@@ -128,15 +130,16 @@ public class Enemy : Character
             Vector3 toRotation = pos - tf.position;
             tf.forward = toRotation; // xoay mat ra huong tan cong
             yield return new WaitForSeconds(0.5f); // doi 0.5s
-            GameObject newBullet = Instantiate(weaponThrow, attackPoint.position, Quaternion.identity);
             if (currentWeapon == WeaponType.Knife)
             {
-                wt = newBullet.GetComponent<Knife>();
+                Knife newBullet = SimplePool.Spawn<Knife>(PoolType.KnifeBulllet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
                 wt.OnInit();
             }
             else if (currentWeapon == WeaponType.Hammer)
             {
-                wt = newBullet.GetComponent<Hummer>();
+                Hummer newBullet = SimplePool.Spawn<Hummer>(PoolType.HammerBullet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
                 wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
