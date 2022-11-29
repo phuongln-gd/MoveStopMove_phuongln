@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelUpVFX : GameUnit
 {
+    [SerializeField] private List<ParticleSystem> listParticle;
     public override void OnInit()
     {
         
@@ -13,4 +14,9 @@ public class LevelUpVFX : GameUnit
     {
     }
 
+
+    public void ChangeColor(Color c)
+    {
+        
+    }
 }

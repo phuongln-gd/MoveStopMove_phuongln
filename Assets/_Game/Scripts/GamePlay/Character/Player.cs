@@ -22,7 +22,6 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        ChangeWeapon(WeaponType.Knife);
         ChangeHat(0);
         ChangePant(0);
         ChangeShield(0);
@@ -35,6 +34,7 @@ public class Player : Character
         {
             if (!isDead)
             {
+                CheckBarrierInAttackArea();
                 timer += Time.deltaTime;
                 hasEnemyInAreaAttack = false;
                 if (!isMove)
@@ -180,5 +180,17 @@ public class Player : Character
             Destroy(skinShield);
         }
         skinShield = Instantiate(skinDataPlayer.ChangeShieldPlayer(i), shieldPos.transform);
+    }
+
+    public void CheckBarrierInAttackArea()
+    {
+        Collider[] colliders = Physics.OverlapSphere(tf.position, attackRange);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag(Constant.BARRIER_TAG) )
+            {
+                colliders[i].GetComponent<Barrier>().ChangeMaterial(1);
+            }
+        }
     }
 }

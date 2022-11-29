@@ -13,6 +13,7 @@ public enum GameState
 public class GameManager : Singleton<GameManager>
 {
     public UserData userData;
+    public List<Camera> cameras;
     protected void Awake()
     {
         //base.Awake();
@@ -46,4 +47,19 @@ public class GameManager : Singleton<GameManager>
     {
         return this.gameState == gameState;
     }
+
+    public void ChangeCameraGamePlay()
+    {
+        cameras[0].gameObject.SetActive(true);
+        cameras[1].gameObject.SetActive(false); 
+    }
+
+    public void ChangeCameraMainMenu()
+    {
+        cameras[0].gameObject.SetActive(false);
+        cameras[1].gameObject.SetActive(true);
+    }
+
+
+
 }

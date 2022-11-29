@@ -14,6 +14,8 @@ public class MainMenu : UICanvas
     {
         base.Open();
         text_gold.text = GameManager.Ins.userData.Gold+"";
+        LevelManager.Ins.player.SetEnableCanvasName(false);
+        GameManager.Ins.ChangeCameraMainMenu();
     }
     public void PlayButton()
     {
@@ -32,11 +34,6 @@ public class MainMenu : UICanvas
     {
         UIManager.Ins.OpenUI<ChangeSkinUI>();
         Close();
-    }
-
-    public void ZombieModeButton()
-    {
-
     }
 
     public void SoundButton()
@@ -67,8 +64,4 @@ public class MainMenu : UICanvas
         }
     }
 
-    public void AdsButton()
-    {
-        
-    }
 }

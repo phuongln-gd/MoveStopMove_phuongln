@@ -12,6 +12,8 @@ public class GamePlay : UICanvas
         base.Open();
         int characterAmount = LevelManager.Ins.currentLevel.botAmount + 1;
         UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + characterAmount);
+        LevelManager.Ins.player.SetEnableCanvasName(true);
+        GameManager.Ins.ChangeCameraGamePlay();
     }
     public void Settingbutton()
     {

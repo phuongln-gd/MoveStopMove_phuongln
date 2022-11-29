@@ -491,6 +491,7 @@ MonoBehaviour:
   character_Level: {fileID: 5638476725341023800}
   isDead: 0
   levelupVFXPrefab: {fileID: 7485325378323398036, guid: 49cc6ca8af80ff2439f686a2e1c4b52e, type: 3}
+  hitVFXPrefab: {fileID: 43478727418965637, guid: 6ef3fb27fb525c343b7980da87abb42d, type: 3}
   agent: {fileID: 3812361384603495044}
   timer: 0
   targetCircle: {fileID: 3789958230165108771}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4886780677930521300}
   - component: {fileID: 4886780677930521301}
+  - component: {fileID: -7203635966197034681}
   m_Layer: 8
   m_Name: GroundBarrier_2
   m_TagString: Barrier
@@ -45,6 +46,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7856673, y: 2, z: 1.5042524}
   m_Center: {x: -0.07635671, y: 0, z: 0.1539371}
+--- !u!114 &-7203635966197034681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4886780677930521299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8bca6cd24fdc248b6604060a90c1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tf: {fileID: 4886780677930521300}
+  rend: {fileID: 939282025510448646}
+  materials:
+  - {fileID: 2100000, guid: 0869f8854ec7df945a616a3562a102a3, type: 2}
+  - {fileID: 2100000, guid: 3cb2aa1a036a9cf44b3a36c7ef186014, type: 2}
 --- !u!1001 &1929956985908179586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,6 +152,11 @@ GameObject:
 --- !u!4 &2108296891424462185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 434b37399cc78804e9b3e0c83a76368e, type: 3}
+  m_PrefabInstance: {fileID: 1929956985908179586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &939282025510448646 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 434b37399cc78804e9b3e0c83a76368e, type: 3}
   m_PrefabInstance: {fileID: 1929956985908179586}
   m_PrefabAsset: {fileID: 0}
 --- !u!208 &1744572786809059834

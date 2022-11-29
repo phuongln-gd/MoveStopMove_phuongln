@@ -16,6 +16,7 @@ public class Win : UICanvas
         GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
         SetText(coin_Rand+"");
         SetTextKilled(LevelManager.Ins.player.killCount + "");
+        LevelManager.Ins.levelIndex += 1;
     }
     public void HomeButton()
     {
@@ -23,6 +24,14 @@ public class Win : UICanvas
         LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
+        Close();
+    }
+
+    public void NextButton()
+    {
+        LevelManager.Ins.LoadLevel(LevelManager.Ins.levelIndex);
+        GameManager.Ins.ChangeState(GameState.GamePlay);
+        UIManager.Ins.OpenUI<GamePlay>();
         Close();
     }
 

@@ -52,6 +52,7 @@ public class Character : GameUnit, IHit
     [HideInInspector] public bool isDead;
     private int upgradeCount;
     [SerializeField] private ParticleSystem levelupVFXPrefab;
+    [SerializeField] private ParticleSystem hitVFXPrefab;
     public override void OnInit()
     {
         isDead = false;
@@ -96,7 +97,7 @@ public class Character : GameUnit, IHit
     public void UpgradeScale()
     {
         skin.localScale = skin.localScale * 1.1f;
-        attackRange *= 1.5f;
+        attackRange += 0.75f;
         ParticlePool.Play(levelupVFXPrefab,tf.position,tf.rotation);
     }
     public void ChangeAnim(string animName)
@@ -191,8 +192,12 @@ public class Character : GameUnit, IHit
     
     public virtual void OnHit()
     {
+        ParticlePool.Play(hitVFXPrefab, tf.position, tf.rotation);
         OnDespawn();
     }
 
-    
+    public void SetEnableCanvasName(bool flag)
+    {
+        character_Level.gameObject.SetActive(flag);
+    }
 }

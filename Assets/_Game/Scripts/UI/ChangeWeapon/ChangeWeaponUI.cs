@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChangeWeaponUI : UICanvas
 {
     [SerializeField] private List<GameObject> weapons;
+    [SerializeField] private TextMeshProUGUI text_gold;
+
     private int currentIndex;
     public override void Open()
     {
         base.Open();
         currentIndex = 0;
+        text_gold.text = GameManager.Ins.userData.Gold + "";
     }
 
 

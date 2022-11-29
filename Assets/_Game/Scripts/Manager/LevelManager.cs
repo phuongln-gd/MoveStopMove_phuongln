@@ -8,20 +8,19 @@ public class LevelManager : Singleton<LevelManager>
     public Player player;
 
     public Level currentLevel;
-
+    public int levelIndex;
 
     private void Start()
     {
         OnInit();
+        player.ChangeWeapon(WeaponType.Knife);
         UIManager.Ins.OpenUI<MainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
     }
     public void OnInit()
     {
-        LoadLevel(0);
-        player.tf.position = currentLevel.startPoint.position;
-        player.OnInit();
-        player.skin.localScale = Vector3.one;
+        levelIndex = 0;
+        LoadLevel(levelIndex);
     }
 
     public void LoadLevel(int level) 
@@ -35,6 +34,11 @@ public class LevelManager : Singleton<LevelManager>
         {
             currentLevel = Instantiate(levelPrefabs[level]);
             currentLevel.OnInit();
+        }
+        else
+        {
+            levelIndex = 0;
+            LoadLevel(levelIndex);
         }
     }
     public void OnStartGame()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +12,22 @@ public class ChangeSkinUI : UICanvas
 {
     private ShopState currentState;
     [SerializeField] private List<Image> shopStates;
+    [SerializeField] private TextMeshProUGUI text_gold;
     public override void Open()
     {
         base.Open();
         currentState = ShopState.Hat;
         OpenShopState(ShopState.Hat);
         shopStates[(int)currentState].gameObject.SetActive(true);
+        LevelManager.Ins.player.ChangeAnim(Constant.DANCE_ANIM);
+        text_gold.text = GameManager.Ins.userData.Gold + "";
     }
 
-
+    public override void Close()
+    {
+        base.Close();
+        LevelManager.Ins.player.ChangeAnim(Constant.IDLE_ANIM);
+    }
     public void X_Button()
     {
         UIManager.Ins.OpenUI<MainMenu>();
