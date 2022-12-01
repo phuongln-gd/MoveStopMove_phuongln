@@ -24,5 +24,5 @@ public class Hummer : WeaponThrow
     {
         base.SetTargetPosition(pos);
     }
-
+    
 }

@@ -10,7 +10,7 @@ public class GamePlay : UICanvas
     public override void Open()
     {
         base.Open();
-        int characterAmount = LevelManager.Ins.currentLevel.botAmount + 1;
+        int characterAmount = LevelManager.Ins.currentLevel.aliveBot + 1;
         UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + characterAmount);
         LevelManager.Ins.player.SetEnableCanvasName(true);
         GameManager.Ins.ChangeCameraGamePlay();

@@ -81,6 +81,12 @@ public class WeaponThrow : GameUnit
             target.OnHit();
             OnDespawn();
         }
+        if (other.CompareTag(Constant.BARRIER_TAG))
+        {
+            rb.velocity = Vector3.zero;
+            hasTarget = false;
+            Invoke(nameof(OnDespawn), 2f);
+        }
     }
 
     
