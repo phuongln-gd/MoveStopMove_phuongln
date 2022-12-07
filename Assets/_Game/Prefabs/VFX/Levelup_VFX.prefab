@@ -1361,7 +1361,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.9528302, g: 0.91673625, b: 0.4000089, a: 1}
+        key0: {r: 0.990566, g: 0.9374623, b: 0.07008721, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -4816,7 +4816,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c34d6acfc9851149934f9c52c288997, type: 2}
+  - {fileID: 2100000, guid: dd22f5a19e5376443a01539139e4032e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4873,6 +4873,7 @@ GameObject:
   - component: {fileID: 7783217850274423274}
   - component: {fileID: 7485325378323398036}
   - component: {fileID: 4253191591372071116}
+  - component: {fileID: 3930645454042177075}
   m_Layer: 0
   m_Name: Levelup_VFX
   m_TagString: Untagged
@@ -9621,7 +9622,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: d59ded6a4b6e0ef4398b5630a70ea473, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9667,3 +9668,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3930645454042177075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9195217482037175624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5bc65a05c0ba6409dceaf51073e594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  psList:
+  - {fileID: 8092020915791093772}

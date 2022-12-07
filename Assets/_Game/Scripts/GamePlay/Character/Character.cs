@@ -51,8 +51,8 @@ public class Character : GameUnit, IHit
     [SerializeField] protected Character_Level character_Level;
     [HideInInspector] public bool isDead;
     private int upgradeCount;
-    [SerializeField] private ParticleSystem levelupVFXPrefab;
-    [SerializeField] private ParticleSystem hitVFXPrefab;
+    [SerializeField] protected ParticleSystem levelupVFXPrefab;
+    [SerializeField] protected ParticleSystem hitVFXPrefab;
     public override void OnInit()
     {
         isDead = false;
@@ -200,4 +200,10 @@ public class Character : GameUnit, IHit
     {
         character_Level.gameObject.SetActive(flag);
     }
+
+    public void SetAttackRange(int attackRange)
+    {
+        this.attackRange = this.attackRange + (float) attackRange / 100 * this.attackRange;
+    }
+    
 }

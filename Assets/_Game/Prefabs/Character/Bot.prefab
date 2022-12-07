@@ -480,7 +480,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 0c3aeae116f494943a5a7b2ed5926fe2, type: 2}
   skinData: {fileID: 11400000, guid: 50cde065a74457845837e744bede3c0c, type: 2}
   nameData: {fileID: 11400000, guid: 8a5621a393ebcbb4f8cf97b58580f109, type: 2}
-  skinDataPlayer: {fileID: 0}
+  skinDataPlayer: {fileID: 11400000, guid: 5ad273b627f8e8c45b38665788c1142b, type: 2}
   skin_pant: {fileID: 3812361384863702913}
   skin_color: {fileID: 3812361386253887142}
   colorType: 0

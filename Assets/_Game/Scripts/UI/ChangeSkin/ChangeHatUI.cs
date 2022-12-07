@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChangeHatUI : MonoBehaviour
 {
     [SerializeField] private List<Image> items;
+    [SerializeField] private TextMeshProUGUI description_item;
+
     private int currentItem = 0;
     private void Awake()
     {
@@ -32,6 +35,13 @@ public class ChangeHatUI : MonoBehaviour
             currentItem = i;
             items[currentItem].color = Color.yellow;
             LevelManager.Ins.player.ChangeHat(currentItem);
+            items[i].GetComponent<ItemAttribute>().SetStringDescription();
+            SetDescriptionItem(items[i].GetComponent<ItemAttribute>().description);
         }
+    }
+
+    public void SetDescriptionItem(string s)
+    {
+        description_item.text = s;
     }
 }

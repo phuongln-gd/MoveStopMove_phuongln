@@ -330,4 +330,5 @@ public enum PoolType
     Bot,
     HammerBullet,
     KnifeBulllet,
+    CandyBullet
 }

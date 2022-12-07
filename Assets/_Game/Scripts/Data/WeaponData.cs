@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum WeaponType
 {
-    Knife,Hammer
+    Knife,Hammer,Candy
 }
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/WeaponData", order = 1)]

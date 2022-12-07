@@ -31,7 +31,7 @@ public class Enemy : Character
     {
         base.OnInit();
 
-        ChangeWeapon((WeaponType)Random.Range(0, 2));
+        ChangeWeapon((WeaponType)Random.Range(0, 3));
         ChangeSkinPantRandom();
         ChangeSkinColor((ColorType)(Random.Range(0, 6)));
         RandomName();
@@ -42,7 +42,7 @@ public class Enemy : Character
 
         targetCircle.SetEnable(false);
     }
-    
+
     public bool IsDestination()
     {
         if (Vector3.Distance(tf.position.x * Vector3.right + tf.position.z * Vector3.forward, destionation) < 2f)
@@ -143,6 +143,12 @@ public class Enemy : Character
             else if (currentWeapon == WeaponType.Hammer)
             {
                 Hummer newBullet = SimplePool.Spawn<Hummer>(PoolType.HammerBullet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
+                wt.OnInit();
+            }
+            else if (currentWeapon == WeaponType.Candy)
+            {
+                Candy newBullet = SimplePool.Spawn<Candy>(PoolType.CandyBullet, attackPoint.position, Quaternion.identity);
                 wt = newBullet;
                 wt.OnInit();
             }

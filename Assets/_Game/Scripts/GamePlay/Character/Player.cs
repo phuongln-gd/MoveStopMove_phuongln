@@ -27,6 +27,7 @@ public class Player : Character
         ChangeShield(0);
         killCount = 0;
         currentTarget = null;
+        ChangeSkinColor(ColorType.Red);
     }
     void Update()
     {
@@ -149,6 +150,12 @@ public class Player : Character
             else if (currentWeapon == WeaponType.Hammer)
             {
                 Hummer newBullet = SimplePool.Spawn<Hummer>(PoolType.HammerBullet, attackPoint.position, Quaternion.identity);
+                wt = newBullet;
+                wt.OnInit();
+            }
+            else if (currentWeapon == WeaponType.Candy)
+            {
+                Candy newBullet = SimplePool.Spawn<Candy>(PoolType.CandyBullet, attackPoint.position, Quaternion.identity);
                 wt = newBullet;
                 wt.OnInit();
             }

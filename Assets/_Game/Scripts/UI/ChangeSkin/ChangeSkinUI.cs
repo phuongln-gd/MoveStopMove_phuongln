@@ -68,6 +68,10 @@ public class ChangeSkinUI : UICanvas
     public void CloseCurrentShopState()
     {
         shopStates[(int)currentState].gameObject.SetActive(false);
+        if (currentState == ShopState.Shield)
+        {
+            shopStates[(int)currentState].GetComponent<ChangeShieldUI>().OnDespawn();
+        }
     }
 
 }

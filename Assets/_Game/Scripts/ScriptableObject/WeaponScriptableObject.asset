@@ -15,6 +15,8 @@ MonoBehaviour:
   weaponThrowPrefabs:
   - {fileID: 7344914573247624457, guid: 084c39a3c0d31644dae5821f62dfc38d, type: 3}
   - {fileID: 6933553495363055215, guid: b9cf27ef57a01d3449bae80992ac9ae7, type: 3}
+  - {fileID: 7873261673075294311, guid: 80ff91c15c817724881beddd35e18d30, type: 3}
   weaponHandSkins:
   - {fileID: 1442099688926938133, guid: 8ba94552a7e3dbf46816ca005c30f729, type: 3}
   - {fileID: 300061803785507202, guid: eb20e18c32898334c9e5504c9dde6ac7, type: 3}
+  - {fileID: 5341143488248850359, guid: 0d066cde4dcf5a541a397a64d5329835, type: 3}
