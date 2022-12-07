@@ -9,10 +9,12 @@ public class ChangeHatUI : MonoBehaviour
     [SerializeField] private List<Image> items;
     [SerializeField] private TextMeshProUGUI description_item;
 
-    private int currentItem = 0;
+    private int currentItem;
     private void Awake()
     {
         currentItem = 0;
+        int i = GameManager.Ins.userData.lastUsedHat;
+        ChangeCurrentItem(i);
     }
     public void ChangeItem1()
     {

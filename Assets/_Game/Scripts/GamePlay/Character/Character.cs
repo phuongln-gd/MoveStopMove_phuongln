@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Character : GameUnit, IHit
@@ -164,6 +165,10 @@ public class Character : GameUnit, IHit
             Destroy(skinWeaponHand);
         }
         currentWeapon = weaponType;
+        if (gameObject.TryGetComponent<Player>(out Player player))
+        {
+            GameManager.Ins.userData.SetIntData(UserData.Key_Last_Used_Weapon, ref GameManager.Ins.userData.lastUsedWeapon, (int)currentWeapon);
+        }
         skinWeaponHand = Instantiate(weaponData.GetWeaponHand(weaponType), weaponHand.transform);
         weaponThrow = weaponData.GetWeaponThrow(weaponType).gameObject;
     }

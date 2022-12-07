@@ -32,6 +32,12 @@ public class UserData : ScriptableObject
 
     public string lastTimePlay;
 
+    public int lastUsedWeapon = 0;
+    public int lastUsedHat = 0;
+    public int lastUsedPant = 0;
+    public int lastUsedShield = 0;
+
+
     #region List
 
     /// <summary>
@@ -146,6 +152,11 @@ public class UserData : ScriptableObject
         meleeHaveOwned = PlayerPrefs.GetInt(Key_Melee_Have_Owned, 0);
         rangeHaveOwned = PlayerPrefs.GetInt(Key_Range_Have_Owned, 0);
 
+        lastUsedWeapon = PlayerPrefs.GetInt(Key_Last_Used_Weapon, 0);
+        lastUsedHat = PlayerPrefs.GetInt(Key_Last_Used_Hat, 0);
+        lastUsedPant = PlayerPrefs.GetInt(Key_Last_Used_Pant, 0);
+        lastUsedShield = PlayerPrefs.GetInt(Key_Last_Used_Shield, 0);
+
     }
 
     public void OnResetData()
@@ -172,6 +183,11 @@ public class UserData : ScriptableObject
 
     public const string Key_Melee_Have_Owned = "Key_Melee_Have_Owned";
     public const string Key_Range_Have_Owned = "Key_Range_Have_Owned";
+
+    public const string Key_Last_Used_Weapon = "Key_Last_Used_Weapon";
+    public const string Key_Last_Used_Hat = "Key_Last_Used_Hat";
+    public const string Key_Last_Used_Pant = "Key_Last_Used_Pant";
+    public const string Key_Last_Used_Shield = "Key_Last_Used_Shield";
 }
 
 

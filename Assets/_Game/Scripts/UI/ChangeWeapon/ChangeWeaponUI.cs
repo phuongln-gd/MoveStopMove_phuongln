@@ -11,16 +11,41 @@ public class ChangeWeaponUI : UICanvas
     [SerializeField] private TextMeshProUGUI text_gold;
 
     private int currentIndex;
+    private int currentItem;
     public override void Open()
     {
         base.Open();
-        currentIndex = 0;
         text_gold.text = GameManager.Ins.userData.Gold + "";
+        currentIndex = 0;
+        currentItem = GameManager.Ins.userData.lastUsedWeapon;
+        if (currentItem != 0)
+        {
+            weapons[0].GetComponent<EquipWeaponText>().SetUnEquipText(); ;
+            weapons[currentItem].GetComponent<EquipWeaponText>().SetEquipText();
+        }
     }
 
-
+    public void ChangeCurrentItem(int i)
+    {
+        if (currentItem != i)
+        {
+            weapons[currentItem].GetComponent<EquipWeaponText>().SetUnEquipText(); ;
+            currentItem = i;
+            weapons[currentItem].GetComponent<EquipWeaponText>().SetEquipText();
+            LevelManager.Ins.player.ChangeWeapon((WeaponType)currentItem);
+        }
+    }
+    public void EquipButton()
+    {
+        if (currentItem != currentIndex)
+        {
+            ChangeCurrentItem(currentIndex);
+        }
+    }
+   
     public void NextItemButton()
     {
+        CloseCurrentPanel();
         currentIndex++;
         if (currentIndex > weapons.Count - 1)
         {
@@ -30,12 +55,12 @@ public class ChangeWeaponUI : UICanvas
         {
             currentIndex = weapons.Count - 1;
         }
-        OpenPanelChildren(currentIndex);
-        closeOtherPanelChildren(currentIndex);
+        OpenCurrentPanel();
     }
 
     public void BackItemButton()
     {
+        CloseCurrentPanel();
         currentIndex--;
         if (currentIndex > weapons.Count - 1)
         {
@@ -45,50 +70,22 @@ public class ChangeWeaponUI : UICanvas
         {
             currentIndex = weapons.Count - 1;
         }
-        OpenPanelChildren(currentIndex);
-        closeOtherPanelChildren(currentIndex);
+        OpenCurrentPanel();
     }
 
-    public void EquipButton()
-    {
-        if (weapons[currentIndex].GetComponent<EquipWeaponText>().GetEquipText() == "equip")
-        {
-            LevelManager.Ins.player.ChangeWeapon((WeaponType)currentIndex);
-            SetUnEquipWeaponAll();
-            weapons[currentIndex].GetComponent<EquipWeaponText>().SetEquipText();
-        }
-    }
-
-    public void SetUnEquipWeaponAll()
-    {
-        for(int i =0;i < weapons.Count; i++)
-        {
-            weapons[i].GetComponent<EquipWeaponText>().SetUnEquipText();
-        }
-    }
     public void X_Button()
     {
         UIManager.Ins.OpenUI<MainMenu>();
         Close();
     }
 
-    public void OpenPanelChildren(int i)
+    public void OpenCurrentPanel()
     {
-        weapons[i].SetActive(true);
-    }
-    public void closeOtherPanelChildren(int index)
-    {
-        for(int i = 0; i<weapons.Count;i++)
-        {
-            if (index != i)
-            {
-                closePanelChildren(i);
-            }
-        }
+        weapons[currentIndex].SetActive(true);
     }
 
-    public void closePanelChildren(int i)
+    public void CloseCurrentPanel()
     {
-        weapons[i].SetActive(false);
+        weapons[currentIndex].SetActive(false);
     }
 }

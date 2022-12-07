@@ -14,13 +14,13 @@ public class EquipWeaponText : MonoBehaviour
     }
     public void SetEquipText()
     {
-        equipText.text = "equiped";
+        equipText.text = Constant.EQUIPPED_TEXT;
         SetBackGroundEquiped();
     }
 
     public void SetUnEquipText()
     {
-        equipText.text = "equip";
+        equipText.text = Constant.EQUIP_TEXT;
         SetBackGroundUnEquip();
     }
 

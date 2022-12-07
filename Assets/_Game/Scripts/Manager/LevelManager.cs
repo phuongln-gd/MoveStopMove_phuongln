@@ -13,7 +13,6 @@ public class LevelManager : Singleton<LevelManager>
     private void Start()
     {
         OnInit();
-        player.ChangeWeapon(WeaponType.Knife);
         UIManager.Ins.OpenUI<MainMenu>();
         GameManager.Ins.ChangeState(GameState.MainMenu);
     }

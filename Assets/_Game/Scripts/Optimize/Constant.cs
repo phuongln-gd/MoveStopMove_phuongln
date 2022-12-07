@@ -17,5 +17,6 @@ public class Constant
     public const string CHARACTER_TAG = "Character";
     public const string BARRIER_TAG = "Barrier";
 
-
+    public const string EQUIP_TEXT = "equip";
+    public const string EQUIPPED_TEXT = "equipped";
 }

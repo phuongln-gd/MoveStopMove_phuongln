@@ -12,6 +12,8 @@ public class ChangeShieldUI : MonoBehaviour
     {
         currentItem = 0;
         equipedindex = 0;
+        int i = GameManager.Ins.userData.lastUsedShield;
+        ChangeCurrentItem(i);
     }
     
     public void OnDespawn()

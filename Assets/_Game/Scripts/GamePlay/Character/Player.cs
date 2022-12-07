@@ -22,9 +22,10 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        ChangeHat(0);
-        ChangePant(0);
-        ChangeShield(0);
+        ChangeWeapon((WeaponType)GameManager.Ins.userData.lastUsedWeapon);
+        ChangeHat(GameManager.Ins.userData.lastUsedHat);
+        ChangePant(GameManager.Ins.userData.lastUsedPant);
+        ChangeShield(GameManager.Ins.userData.lastUsedShield);
         killCount = 0;
         currentTarget = null;
         ChangeSkinColor(ColorType.Red);
@@ -173,11 +174,13 @@ public class Player : Character
             Destroy(skinHat);
         }
         skinHat = Instantiate(skinDataPlayer.ChangeHatPlayer(i), hatPos.transform);
+        GameManager.Ins.userData.SetIntData(UserData.Key_Last_Used_Hat, ref GameManager.Ins.userData.lastUsedHat, i);
     }
 
     public void ChangePant(int i)
     {
         skin_pant.GetComponent<SkinnedMeshRenderer>().material = skinDataPlayer.ChangePantPlayer(i);
+        GameManager.Ins.userData.SetIntData(UserData.Key_Last_Used_Pant, ref GameManager.Ins.userData.lastUsedPant, i);
     }
 
     public void ChangeShield(int i)
@@ -187,6 +190,7 @@ public class Player : Character
             Destroy(skinShield);
         }
         skinShield = Instantiate(skinDataPlayer.ChangeShieldPlayer(i), shieldPos.transform);
+        GameManager.Ins.userData.SetIntData(UserData.Key_Last_Used_Shield, ref GameManager.Ins.userData.lastUsedShield, i);
     }
 
     public void CheckBarrierInAttackArea()

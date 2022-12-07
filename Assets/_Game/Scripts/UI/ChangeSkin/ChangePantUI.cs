@@ -13,6 +13,8 @@ public class ChangePantUI : MonoBehaviour
     private void Awake()
     {
         currentItem = 0;
+        int i = GameManager.Ins.userData.lastUsedPant;
+        ChangeCurrentItem(i);
     }
     public void ChangeItem1()
     {
