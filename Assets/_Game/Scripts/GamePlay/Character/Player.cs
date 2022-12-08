@@ -124,6 +124,7 @@ public class Player : Character
     public override void OnHit()
     {
         base.OnHit();
+        AudioManager.Ins.Play(Constant.SOUND_PLAYERDIE);
     }
 
     public override void Attack(Character target)
@@ -161,6 +162,7 @@ public class Player : Character
                 wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
+            AudioManager.Ins.Play(Constant.SOUND_THROWWEAPON);
             wt.SetCharacter(this);
             wt.SetTargetPosition(pos);
             Invoke(nameof(ResetAttack), 1.5f);

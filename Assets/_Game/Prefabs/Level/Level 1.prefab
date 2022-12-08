@@ -1453,9 +1453,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 7938113844667537397}
-  botAmount: 29
+  botAmount: 3
   aliveBot: 0
-  maxBotOnGround: 10
+  maxBotOnGround: 3
   spawnedBotAmount: 0
   enemys: []
   startPoints_Bot:

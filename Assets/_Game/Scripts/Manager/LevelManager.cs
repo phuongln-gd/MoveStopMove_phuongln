@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     public Level currentLevel;
     public int levelIndex;
 
+    public TargetIndicatorManager targetIndicatorManager;
     private void Start()
     {
         OnInit();
@@ -18,7 +19,7 @@ public class LevelManager : Singleton<LevelManager>
     }
     public void OnInit()
     {
-        levelIndex = 0;
+        levelIndex = GameManager.Ins.userData.PlayingLevel;
         LoadLevel(levelIndex);
     }
 
@@ -37,6 +38,7 @@ public class LevelManager : Singleton<LevelManager>
         else
         {
             levelIndex = 0;
+            GameManager.Ins.userData.SetIntData(UserData.Key_PlayingLevel, ref GameManager.Ins.userData.PlayingLevel, levelIndex);
             LoadLevel(levelIndex);
         }
     }

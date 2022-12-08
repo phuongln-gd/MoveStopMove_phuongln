@@ -16,6 +16,7 @@ public class Lose : UICanvas
         GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
         SetText(coin_Rand + "");
         SetTextLose();
+        AudioManager.Ins.Play(Constant.SOUND_LOSE);
     }
 
     public void HomeButton()
@@ -24,12 +25,13 @@ public class Lose : UICanvas
         LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
+        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         Close();
     }
 
     public void WatchVideoButton()
     {
-
+        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
     }
     public void SetTextLose()
     {

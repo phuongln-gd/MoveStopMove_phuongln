@@ -22,12 +22,14 @@ public class Setting : UICanvas
         LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
+        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         Close();
     }
 
     public void ContinueButton()
     {
         GameManager.Ins.ChangeState(GameState.GamePlay);
+        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         UIManager.Ins.OpenUI<GamePlay>();
         Close();
     }

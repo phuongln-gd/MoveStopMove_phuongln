@@ -19,4 +19,13 @@ public class Constant
 
     public const string EQUIP_TEXT = "equip";
     public const string EQUIPPED_TEXT = "equipped";
+
+
+    public const string SOUND_BOTDEATH = "BotDeath";
+    public const string SOUND_PLAYERDIE = "PlayerDie";
+    public const string SOUND_LOSE = "Lose";
+    public const string SOUND_WIN = "Win";
+    public const string SOUND_BUTTONCLICK = "ButtonClick";
+    public const string SOUND_THROWWEAPON= "ThrowWeapon";
+    public const string SOUND_WEAPONHIT = "WeaponHit";
 }

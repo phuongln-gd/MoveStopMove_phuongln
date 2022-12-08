@@ -14,10 +14,12 @@ public class GamePlay : UICanvas
         UIManager.Ins.GetUI<GamePlay>().SetAliveText("Alive: " + characterAmount);
         LevelManager.Ins.player.SetEnableCanvasName(true);
         GameManager.Ins.ChangeCameraGamePlay();
+        LevelManager.Ins.targetIndicatorManager.SetEnable(true);
     }
     public void Settingbutton()
     {
         GameManager.Ins.ChangeState(GameState.Setting);
+        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         UIManager.Ins.OpenUI<Setting>();
         Close();
     }
