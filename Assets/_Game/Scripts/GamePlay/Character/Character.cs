@@ -160,7 +160,7 @@ public class Character : GameUnit, IHit
 
     public void ChangeWeapon(WeaponType weaponType)
     {
-        if (skinWeaponHand != null && currentWeapon != weaponType)
+        if (skinWeaponHand != null )
         {
             Destroy(skinWeaponHand);
         }

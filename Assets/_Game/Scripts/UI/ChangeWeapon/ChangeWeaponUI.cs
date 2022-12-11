@@ -16,15 +16,20 @@ public class ChangeWeaponUI : UICanvas
     {
         base.Open();
         text_gold.text = GameManager.Ins.userData.Gold + "";
-        currentIndex = 0;
         currentItem = GameManager.Ins.userData.lastUsedWeapon;
+        currentIndex = currentItem;
         if (currentItem != 0)
         {
             weapons[0].GetComponent<EquipWeaponText>().SetUnEquipText(); ;
             weapons[currentItem].GetComponent<EquipWeaponText>().SetEquipText();
         }
+        OpenCurrentPanel();
     }
-
+    public override void Close()
+    {
+        base.Close();
+        CloseCurrentPanel();
+    }
     public void ChangeCurrentItem(int i)
     {
         if (currentItem != i)
@@ -37,10 +42,8 @@ public class ChangeWeaponUI : UICanvas
     }
     public void EquipButton()
     {
-        if (currentItem != currentIndex)
-        {
-            ChangeCurrentItem(currentIndex);
-        }
+        
+        ChangeCurrentItem(currentIndex);
     }
    
     public void NextItemButton()
