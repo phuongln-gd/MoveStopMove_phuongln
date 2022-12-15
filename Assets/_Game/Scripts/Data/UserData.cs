@@ -136,7 +136,7 @@ public class UserData : ScriptableObject
         }
 #endif
 
-        PlayingLevel = PlayerPrefs.GetInt(Key_PlayingLevel, 1);
+        PlayingLevel = PlayerPrefs.GetInt(Key_PlayingLevel, 0);
         Gold = PlayerPrefs.GetInt(Key_Gold, 100);
         Cash = PlayerPrefs.GetString(Key_Cash, "50");
         musicIsOn = PlayerPrefs.GetInt(Key_MusicIsOn, 1) == 1;
