@@ -59,6 +59,10 @@ public class ChangeSkinUI : UICanvas
     {
         if (currentState != shopState)
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             CloseCurrentShopState();
             currentState = shopState;
             shopStates[(int)shopState].gameObject.SetActive(true);

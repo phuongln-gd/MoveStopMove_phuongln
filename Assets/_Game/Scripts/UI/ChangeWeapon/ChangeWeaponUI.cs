@@ -34,6 +34,10 @@ public class ChangeWeaponUI : UICanvas
     {
         if (currentItem != i)
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             weapons[currentItem].GetComponent<EquipWeaponText>().SetUnEquipText(); ;
             currentItem = i;
             weapons[currentItem].GetComponent<EquipWeaponText>().SetEquipText();
@@ -42,12 +46,15 @@ public class ChangeWeaponUI : UICanvas
     }
     public void EquipButton()
     {
-        
         ChangeCurrentItem(currentIndex);
     }
    
     public void NextItemButton()
     {
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         CloseCurrentPanel();
         currentIndex++;
         if (currentIndex > weapons.Count - 1)
@@ -63,6 +70,10 @@ public class ChangeWeaponUI : UICanvas
 
     public void BackItemButton()
     {
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         CloseCurrentPanel();
         currentIndex--;
         if (currentIndex > weapons.Count - 1)
@@ -78,6 +89,10 @@ public class ChangeWeaponUI : UICanvas
 
     public void X_Button()
     {
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         UIManager.Ins.OpenUI<MainMenu>();
         Close();
     }

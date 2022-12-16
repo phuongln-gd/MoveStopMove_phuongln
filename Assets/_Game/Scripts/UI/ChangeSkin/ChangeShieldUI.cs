@@ -38,6 +38,10 @@ public class ChangeShieldUI : MonoBehaviour
     {
         if (currentItem != i)
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             items[currentItem].color = Color.blue;
             items[currentItem].GetComponent<Item>().OnDespawn();
             if (items[currentItem].GetComponent<Item>().currentState == ItemState.equiped)

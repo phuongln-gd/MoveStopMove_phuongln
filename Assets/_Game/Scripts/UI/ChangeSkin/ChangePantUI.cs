@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ChangePantUI : MonoBehaviour
 {
     [SerializeField] private List<Image> items;
-    [SerializeField] private TextMeshProUGUI description_item;
 
     private int currentItem = 0;
     private void Awake()
@@ -38,17 +37,16 @@ public class ChangePantUI : MonoBehaviour
     {
         if (currentItem != i)
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             items[currentItem].color = Color.blue;
             currentItem = i;
             items[currentItem].color = Color.yellow;
             LevelManager.Ins.player.ChangePant(currentItem);
-            items[i].GetComponent<ItemAttribute>().SetStringDescription();
-            SetDescriptionItem(items[i].GetComponent<ItemAttribute>().description);
         }
     }
 
-    public void SetDescriptionItem(string s)
-    {
-        description_item.text = s;
-    }
+    
 }

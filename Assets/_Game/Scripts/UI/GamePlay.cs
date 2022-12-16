@@ -19,7 +19,10 @@ public class GamePlay : UICanvas
     public void Settingbutton()
     {
         GameManager.Ins.ChangeState(GameState.Setting);
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         UIManager.Ins.OpenUI<Setting>();
         Close();
     }

@@ -40,6 +40,10 @@ public class Item : MonoBehaviour
     {
         if (GameManager.Ins.userData.Gold >= Int32.Parse(amount.text))
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             lockimage.gameObject.SetActive(false);
             SetEnableBuyButton(false);
             currentState = ItemState.equiped;

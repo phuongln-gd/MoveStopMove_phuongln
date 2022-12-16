@@ -11,12 +11,17 @@ public class Lose : UICanvas
     public override void Open()
     {
         base.Open();
+        LevelManager.Ins.IsGameOver = true;
         int coin_Rand = Random.Range(10, 15);
         int coin_player = coin_Rand + GameManager.Ins.userData.Gold;
         GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
         SetText(coin_Rand + "");
         SetTextLose();
-        AudioManager.Ins.Play(Constant.SOUND_LOSE);
+        LevelManager.Ins.targetIndicatorManager.SetEnable(false);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_LOSE);
+        }
     }
 
     public void HomeButton()
@@ -25,13 +30,19 @@ public class Lose : UICanvas
         LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 
     public void WatchVideoButton()
     {
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
     }
     public void SetTextLose()
     {

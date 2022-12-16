@@ -9,6 +9,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public Level currentLevel;
     public int levelIndex;
+    public bool IsGameOver;
 
     public TargetIndicatorManager targetIndicatorManager;
     private void Start()

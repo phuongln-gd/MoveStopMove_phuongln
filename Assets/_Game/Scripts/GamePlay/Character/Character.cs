@@ -99,7 +99,8 @@ public class Character : GameUnit, IHit
     {
         skin.localScale = skin.localScale * 1.1f;
         attackRange += 0.75f;
-        ParticlePool.Play(levelupVFXPrefab,tf.position,tf.rotation);
+        ParticlePool.Play(levelupVFXPrefab, tf.position,tf.rotation);
+        levelupVFXPrefab.GetComponent<VFX>().psList[0].GetComponent<ParticleSystemRenderer>().sharedMaterial = skinData.GetColor(colorType);
     }
     public void ChangeAnim(string animName)
     {

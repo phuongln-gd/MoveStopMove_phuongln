@@ -47,6 +47,7 @@ public class Level : MonoBehaviour
         }
         aliveBot = botAmount;
 
+        LevelManager.Ins.IsGameOver = false;
         LevelManager.Ins.player.tf.position = LevelManager.Ins.currentLevel.startPoint.position;
         LevelManager.Ins.player.OnInit();
         LevelManager.Ins.player.skin.localScale = Vector3.one;

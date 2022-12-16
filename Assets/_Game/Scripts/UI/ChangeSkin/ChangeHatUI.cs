@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ChangeHatUI : MonoBehaviour
 {
     [SerializeField] private List<Image> items;
-    [SerializeField] private TextMeshProUGUI description_item;
 
     private int currentItem;
     private void Awake()
@@ -33,17 +32,15 @@ public class ChangeHatUI : MonoBehaviour
     {
         if ( currentItem != i)
         {
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+            }
             items[currentItem].color = Color.blue;
             currentItem = i;
             items[currentItem].color = Color.yellow;
             LevelManager.Ins.player.ChangeHat(currentItem);
-            items[i].GetComponent<ItemAttribute>().SetStringDescription();
-            SetDescriptionItem(items[i].GetComponent<ItemAttribute>().description);
         }
     }
 
-    public void SetDescriptionItem(string s)
-    {
-        description_item.text = s;
-    }
 }

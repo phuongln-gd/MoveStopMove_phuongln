@@ -64,9 +64,12 @@ public class WeaponThrow : GameUnit
                 if (attacker.TryGetComponent<Player>(out Player player))
                 {
                     player.killCount += 1;
-                    AudioManager.Ins.Play(Constant.SOUND_WEAPONHIT);
-                    AudioManager.Ins.Play(Constant.SOUND_BOTDEATH);
-                    if(LevelManager.Ins.currentLevel.aliveBot == 0)
+                    if (GameManager.Ins.soundMode)
+                    {
+                        AudioManager.Ins.Play(Constant.SOUND_WEAPONHIT);
+                        AudioManager.Ins.Play(Constant.SOUND_BOTDEATH);
+                    }
+                    if(LevelManager.Ins.currentLevel.aliveBot == 0 && !LevelManager.Ins.IsGameOver)
                     {
                         GameManager.Ins.ChangeState(GameState.Victory);
                         UIManager.Ins.OpenUI<Win>();

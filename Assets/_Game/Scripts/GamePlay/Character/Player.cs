@@ -92,10 +92,13 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        base.OnDespawn();
-        GameManager.Ins.ChangeState(GameState.Lose);
-        UIManager.Ins.OpenUI<Lose>();
-        UIManager.Ins.CloseUI<GamePlay>();
+        if (!LevelManager.Ins.IsGameOver)
+        {
+            base.OnDespawn();
+            GameManager.Ins.ChangeState(GameState.Lose);
+            UIManager.Ins.OpenUI<Lose>();
+            UIManager.Ins.CloseUI<GamePlay>();
+        }
     }
 
     public void StopMove()
@@ -124,7 +127,10 @@ public class Player : Character
     public override void OnHit()
     {
         base.OnHit();
-        AudioManager.Ins.Play(Constant.SOUND_PLAYERDIE);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_PLAYERDIE);
+        }
     }
 
     public override void Attack(Character target)
@@ -162,7 +168,10 @@ public class Player : Character
                 wt.OnInit();
             }
             wt.skin.transform.forward = toRotation - Vector3.up * -90f; // vu khi huong ra phia muc tieu
-            AudioManager.Ins.Play(Constant.SOUND_THROWWEAPON);
+            if (GameManager.Ins.soundMode)
+            {
+                AudioManager.Ins.Play(Constant.SOUND_THROWWEAPON);
+            }
             wt.SetCharacter(this);
             wt.SetTargetPosition(pos);
             Invoke(nameof(ResetAttack), 1.5f);

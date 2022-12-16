@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MainMenu : UICanvas
 {
-    [SerializeField] private List<Image> phoneStates;
     [SerializeField] private List<Image> soundStates;
     [SerializeField] private TextMeshProUGUI text_gold;
 
@@ -17,57 +16,71 @@ public class MainMenu : UICanvas
         LevelManager.Ins.player.SetEnableCanvasName(false);
         GameManager.Ins.ChangeCameraMainMenu();
         LevelManager.Ins.targetIndicatorManager.SetEnable(false);
+        if (!GameManager.Ins.soundMode)
+        {
+            SetMusicOff();
+        }
     }
     public void PlayButton()
     {
         LevelManager.Ins.OnStartGame();
         UIManager.Ins.OpenUI<GamePlay>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 
     public void ChangeWeaponButton()
     {
         UIManager.Ins.OpenUI<ChangeWeaponUI>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 
     public void ChangeSkinButton()
     {
         UIManager.Ins.OpenUI<ChangeSkinUI>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 
     public void SoundButton()
     {
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         if (soundStates[0].gameObject.activeSelf)
         {
-            soundStates[0].gameObject.SetActive(false);
-            soundStates[1].gameObject.SetActive(true);
+            SetMusicOn();
         }
         else
         {
-            soundStates[0].gameObject.SetActive(true);
-            soundStates[1].gameObject.SetActive(false);
+            SetMusicOff();
+        }
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
         }
     }
 
-    public void PhoneButton()
+    public void SetMusicOn()
     {
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
-        if (phoneStates[0].gameObject.activeSelf)
-        {
-            phoneStates[0].gameObject.SetActive(false);
-            phoneStates[1].gameObject.SetActive(true);
-        }
-        else
-        {
-            phoneStates[0].gameObject.SetActive(true);
-            phoneStates[1].gameObject.SetActive(false);
-        }
+        soundStates[0].gameObject.SetActive(false);
+        soundStates[1].gameObject.SetActive(true);
+        GameManager.Ins.soundMode = true;
+        GameManager.Ins.userData.SetBoolData(UserData.Key_MusicIsOn, ref GameManager.Ins.userData.musicIsOn, true);
     }
 
+    public void SetMusicOff()
+    {
+        soundStates[0].gameObject.SetActive(true);
+        soundStates[1].gameObject.SetActive(false);
+        GameManager.Ins.soundMode = false;
+        GameManager.Ins.userData.SetBoolData(UserData.Key_MusicIsOn, ref GameManager.Ins.userData.musicIsOn, false);
+    }
 }

@@ -11,6 +11,7 @@ public class Win : UICanvas
     public override void Open()
     {
         base.Open();
+        LevelManager.Ins.IsGameOver = true;
         int coin_Rand = Random.Range(30, 40);
         int coin_player = coin_Rand + GameManager.Ins.userData.Gold;
         GameManager.Ins.userData.SetIntData(UserData.Key_Gold, ref GameManager.Ins.userData.Gold, coin_player);
@@ -18,7 +19,11 @@ public class Win : UICanvas
         SetTextKilled(LevelManager.Ins.player.killCount + "");
         LevelManager.Ins.levelIndex += 1;
         GameManager.Ins.userData.SetIntData(UserData.Key_PlayingLevel, ref GameManager.Ins.userData.PlayingLevel, LevelManager.Ins.levelIndex);
-        AudioManager.Ins.Play(Constant.SOUND_WIN);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_WIN);
+        }
+        LevelManager.Ins.targetIndicatorManager.SetEnable(false);
     }
     public void HomeButton()
     {
@@ -26,7 +31,10 @@ public class Win : UICanvas
         LevelManager.Ins.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
         UIManager.Ins.OpenUI<MainMenu>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 
@@ -35,7 +43,10 @@ public class Win : UICanvas
         LevelManager.Ins.LoadLevel(LevelManager.Ins.levelIndex);
         GameManager.Ins.ChangeState(GameState.GamePlay);
         UIManager.Ins.OpenUI<GamePlay>();
-        AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        if (GameManager.Ins.soundMode)
+        {
+            AudioManager.Ins.Play(Constant.SOUND_BUTTONCLICK);
+        }
         Close();
     }
 

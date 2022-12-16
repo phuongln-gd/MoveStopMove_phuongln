@@ -14,6 +14,9 @@ public class GameManager : Singleton<GameManager>
 {
     public UserData userData;
     public List<Camera> cameras;
+    private GameState gameState;
+
+    public bool soundMode; // 0: off,1: on
     protected void Awake()
     {
         //base.Awake();
@@ -28,6 +31,7 @@ public class GameManager : Singleton<GameManager>
             Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
         }
         userData.OnInitData();
+        soundMode = userData.musicIsOn;
         //csv.OnInit();
         //userData?.OnInitData();
 
@@ -36,8 +40,6 @@ public class GameManager : Singleton<GameManager>
         //UIManager.Ins.OpenUI<MianMenu>();
     }
     
-    private GameState gameState;
-
     public void ChangeState(GameState gameState)
     {
         this.gameState = gameState;
@@ -59,7 +61,5 @@ public class GameManager : Singleton<GameManager>
         cameras[0].gameObject.SetActive(false);
         cameras[1].gameObject.SetActive(true);
     }
-
-
 
 }
