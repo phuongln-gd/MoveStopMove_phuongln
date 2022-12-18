@@ -12,7 +12,7 @@ public class ChangeSkinUI : UICanvas
 {
     private ShopState currentState;
     [SerializeField] private List<Image> shopStates;
-    [SerializeField] private TextMeshProUGUI text_gold;
+    public TextMeshProUGUI text_gold;
     public override void Open()
     {
         base.Open();
@@ -76,6 +76,15 @@ public class ChangeSkinUI : UICanvas
         {
             shopStates[(int)currentState].GetComponent<ChangeShieldUI>().OnDespawn();
         }
+        if (currentState == ShopState.Hat)
+        {
+            shopStates[(int)currentState].GetComponent<ChangeHatUI>().OnDespawn();
+        }
+        if (currentState == ShopState.Pant)
+        {
+            shopStates[(int)currentState].GetComponent<ChangePantUI>().OnDespawn();
+        }
+
     }
 
 }

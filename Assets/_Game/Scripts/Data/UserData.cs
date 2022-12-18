@@ -14,7 +14,7 @@ public class UserData : ScriptableObject
     [Header("----Data----")]
 
     public int PlayingLevel = 0;
-    public int Gold = 100;
+    public int Gold = 2000;
 
     public string Cash;
     public bool removeAds = false;
@@ -137,7 +137,7 @@ public class UserData : ScriptableObject
 #endif
 
         PlayingLevel = PlayerPrefs.GetInt(Key_PlayingLevel, 0);
-        Gold = PlayerPrefs.GetInt(Key_Gold, 100);
+        Gold = PlayerPrefs.GetInt(Key_Gold, 2000);
         Cash = PlayerPrefs.GetString(Key_Cash, "50");
         musicIsOn = PlayerPrefs.GetInt(Key_MusicIsOn, 1) == 1;
         vibrationIsOn = PlayerPrefs.GetInt(Key_VibrationIsOn, 1) == 1;

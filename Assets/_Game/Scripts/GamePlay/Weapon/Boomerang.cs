@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Boomerang : WeaponThrow
 {
-    private void Update()
-    {
-    }
-
+    
     public override void OnInit()
     {
         base.OnInit();
